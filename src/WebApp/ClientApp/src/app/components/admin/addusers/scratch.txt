@@ -1,0 +1,54 @@
+
+<mat-form-field>
+    <input type="text" matInput placeholder="First Name" required >
+    <!-- [formControl]="txtFirstName" -->
+</mat-form-field>
+
+<mat-form-field>
+  <input type="text" matInput placeholder="Last Name" required >
+  <!-- [formControl]="txtLastName" -->
+</mat-form-field>
+
+  <br>
+  <section style="display: flex;  align-content: center; align-items: center;  height: 60px;">
+      <mat-checkbox >Is Active?</mat-checkbox>
+      <!-- formControlName="chbxIsActive" -->
+    </section>
+  <br>
+  <button mat-raised-button (click)="save()">Save</button>
+  <button mat-raised-button (click)="cancel()">Cancel</button>
+
+  
+
+
+ <div class="form-group row">
+            <label class=" control-label col-md-12" for="First Name">First Name</label>
+            <div class="col-md-4">
+                <input class="form-control" type="text" formControlName="firstName">
+            </div>
+            <span class="text-danger" *ngIf="userForm.hasError('required', 'firstName') && formDir.submitted">
+                First Name is required.
+            </span>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-md-12" for="Last Name">Last Name</label>
+            <div class="col-md-4">
+                <input class="form-control" type="text" formControlName="lastName">
+            </div>
+            <span class="text-danger" *ngIf="userForm.hasError('required', 'lastName') && formDir.submitted">
+                Last Name is required
+            </span>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-md-12" for="Is Active">Is Active</label>
+            <div class="col-md-4">
+                <input class="form-control" type="text" formControlName="isActive">
+            </div>
+            <span class="text-danger" *ngIf="userForm.hasError('required', 'isActive') && formDir.submitted">
+                Is Active is required
+            </span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Save</button>
+            <button class="btn" (click)="cancel()">Cancel</button>
+        </div>
