@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule, MatCheckboxModule, MatMenuModule, MatToolbarModule,
   MatIconModule, MatCardModule, MatFormFieldModule, MatInputModule,
   MatNativeDateModule, MatRadioModule,
-  MatSelectModule, MatOptionModule, MatSlideToggleModule, ErrorStateMatcher,
+  MatOptionModule, MatSlideToggleModule, ErrorStateMatcher,
   ShowOnDirtyErrorStateMatcher
 } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 // MatDatepicker
 

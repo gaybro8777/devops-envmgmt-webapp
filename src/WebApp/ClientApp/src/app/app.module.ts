@@ -20,6 +20,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { adminhomepage } from './components/admin/adminhomepage/adminhomepage.component';
 import { RetrieveUsersComponent } from './components/admin/retrieveusers/retrieveusers.component';
 import { adduser } from './components/admin/addusers/addusers.component';
+import { updateenvdashboard } from './components/updateenvdashboard/updateenvdashboard.component';
 
 import { APP_BASE_HREF } from '@angular/common';
 
@@ -32,7 +33,7 @@ import { APP_BASE_HREF } from '@angular/common';
     CounterComponent,
     FetchDataComponent,
     adminhomepage,
-    RetrieveUsersComponent, adduser
+    RetrieveUsersComponent, adduser, updateenvdashboard
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -49,6 +50,7 @@ import { APP_BASE_HREF } from '@angular/common';
       { path: 'admin/retrieve-user', component: RetrieveUsersComponent },
       { path: 'admin/adduser', component: adduser },
       { path: 'admin/adduser/:id', component: adduser },
+      { path: 'updateenvdashboard', component: updateenvdashboard },
       { path: '**', redirectTo: 'home' }
     ])
     // { path: '', component: HomeComponent, pathMatch: 'full' },
