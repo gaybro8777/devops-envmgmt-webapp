@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 //import { NgForm, FormsModule, Validators, FormControl } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+//import { ErrorStateMatcher } from '@angular/material/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApplicationsService } from '../../services/applicationsservice.service';
 import { Application } from '../../models/application';
@@ -16,33 +17,28 @@ import { EnvironmentsService } from '../../services/environmentsservice.service'
 //frm: FormControl;
 //this.frm = new FormControl('asdf');
 export class updateenvdashboard implements OnInit {
-    errorMessage: any;
-    ddlApplicationValue: string;
-    applicationList: Application[];
-    //appSelected: Number;
-    ddlEnvironmentValue: string;
-    environmentList: Environment[];
-    //envSelected: Number;
-    modifiedtext: string;
+  //errorMessage: any;
+  ddlApplicationValue: string;
+  applicationList: Application[];
+  //appSelected: Number;
+  ddlEnvironmentValue: string;
+  environmentList: Environment[];
+  //envSelected: Number;
+  modifiedtext: string;
+
+  txtAppVersion: string;
+  txtDBVersion: string;
 
   constructor(public http: HttpClient, private _router: Router, private _avRoute: ActivatedRoute,
         private _applicationsService: ApplicationsService,
-        private _environmentsService: EnvironmentsService) {
-        
-    }
+        private _environmentsService: EnvironmentsService) {   
+   }
 
-    ngOnInit() {
-        //if (this.id > 0) {
-        //    this.title = "Edit";
-        //    this._userService.getUserById(this.id)
-        //        .subscribe(resp => this.userForm.setValue(resp)
-        //            , error => this.errorMessage = error);
-        //}
-        this.getApplications();
-        //this.getEnvironments();
-        //this.appSelected = 0;
-        
-    }
+  ngOnInit() {
+    this.getApplications();
+    //this.getEnvironments();
+    //this.appSelected = 0;
+  }
 
   getApplications() {
         this._applicationsService.getApplications().subscribe(data => {
@@ -52,23 +48,24 @@ export class updateenvdashboard implements OnInit {
     }
 
     onApplicationSelected(event) {
-
-      console.info("help me!");
-      console.log(event);
+      //this.latestChangeEvent = event.value;
+      //console.error("whaaa");
+      //console.info("help me!");
+      //console.log(event);
       //console.log(value);
-        //this.envSelected = val;
-        //this.getEnvironments(val);
+      //this.envSelected = val;
+      this.getEnvironments(event.value);
         
   }
-  changeSelect() { console.log("made it") }
+  changeSelect() { console.log("made it"); }
 
-    getEnvironments(val: any) {
-      this.modifiedtext = "The value " + this.ddlApplicationValue + " was selected from the dropdown--";
-        //this._environmentsService.getEnvironmentsByAppId(val).subscribe(data => {
-        //    this.environmentList = data;
-        //}
-        //    , error => this.errorMessage = error)
+  getEnvironments(val: any) {
+    //this.latestChangeEvent = "The value " + this.ddlApplicationValue + " was selected from the dropdown--";
+    this._environmentsService.getEnvironmentsByAppId(val).subscribe(data => {
+        this.environmentList = data;
     }
+        , error => this.errorMessage = error)
+  }
 
 
     save(f) {

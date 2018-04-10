@@ -27,36 +27,20 @@ namespace DBDevOps.DataControllers
         }
 
         // GET: api/Environments/AppID/1
+        [Route("api/Environments/AppID/{id}")]
         //[HttpGet("{id}")]
-        //[Route("api/Environments/AppID")]
-        //[HttpGet("{id}")]
-        //public async Task<IEnumerable<tblEnvironments>> GetbyAppId(int id)
-        //{
-        //    // public async Task<IEnumerable<tblEnvironments>> GetbyAppId(int id)
-        //    return await this.applicationsDataProvider.GetEnvironmentsByAppId(id);
-
-        //    //IEnumerable<tblEnvironments> tbls_ = await this.applicationsDataProvider.GetEnvironmentsByAppId(id);
-        //    //return tbls_;
-
-        //    //IEnumerable<tblEnvironments> tbls_ = Enumerable.Empty<tblEnvironments>();
-        //    //tblEnvironments tbl_ = new tblEnvironments();
-        //    //tbls_.Append(tbl_);
-        //    //return tbls_;
-        //    //return 1;
-        //}
+        public async Task<IEnumerable<tblEnvironments>> GetbyAppId(int id)
+        {
+            return await this.applicationsDataProvider.GetEnvironmentsByAppId(id);
+        }
 
         // GET: api/Environments/5
-        // [Route("api/Environments/{id}")]
-        // [HttpGet("{id}")]
-        // public async Task<tblEnvironments> Get(int id)
-        // {
-        //     //tblEnvironments tbl_ = await this.applicationsDataProvider.GetEnvironment(id);
-        //     //return await this.applicationsDataProvider.GetEnvironment(id);
-        //     // tblEnvironments tbl_ = new tblEnvironments();
-        //     // tbl_.EnvName = "asdf";
-        //     // tbl_.EnvironmentID = 1;
-        //     // return tbl_;
-        // }
+        [Route("api/Environments/{id}")]
+        //[HttpGet("{id}")]
+        public async Task<tblEnvironments> GetIndividual(int id)
+        {
+            return await this.applicationsDataProvider.GetEnvironment(id);
+        }
 
         // POST: api/Environments
         [Route("api/Environments")]
