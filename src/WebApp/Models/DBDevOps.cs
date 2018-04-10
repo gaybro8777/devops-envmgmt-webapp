@@ -6,7 +6,15 @@ namespace DBDevOps.Models
     public int ApplicationID { get; set; }
     public int EnvironmentID { get; set; }
   }
-      
+
+  public class AppEnvsByAppID
+    {
+      public int AppEnvID { get; set; }
+      public int ApplicationID { get; set; }
+      public int EnvironmentID { get; set; }
+      public string EnvName { get; set; }
+    }
+
   public class tblApplications{
     public int ApplicationID { get; set; }
     public int ProjectTeamID { get; set; }

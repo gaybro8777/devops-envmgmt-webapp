@@ -9,7 +9,7 @@ namespace DBDevOps.DataProvider
     public interface IEnvironments
     {
         Task<IEnumerable<tblEnvironments>> GetEnvironments();
-        Task<IEnumerable<tblEnvironments>> GetEnvironmentsByAppId(int AppID);
+        Task<IEnumerable<AppEnvsByAppID>> GetEnvironmentsByAppId(int AppID);
 
         Task<tblEnvironments> GetEnvironment(int id);
 

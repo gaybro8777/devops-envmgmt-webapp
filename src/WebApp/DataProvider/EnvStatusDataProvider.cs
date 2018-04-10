@@ -41,7 +41,7 @@ namespace DBDevOps.DataProvider
                 dynamicParameters.Add("@EnvStatusID", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 
                 await sqlConnection.ExecuteAsync(
-                    "spcInsertEnvStatusz",
+                    "spcInsertEnvStatus",
                     dynamicParameters,
                     commandType: CommandType.StoredProcedure);
             }

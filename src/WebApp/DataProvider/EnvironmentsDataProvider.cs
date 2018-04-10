@@ -71,7 +71,7 @@ namespace DBDevOps.DataProvider
                     commandType: CommandType.StoredProcedure);
             }
         }
-        public async Task<IEnumerable<tblEnvironments>> GetEnvironmentsByAppId(int AppID)
+        public async Task<IEnumerable<AppEnvsByAppID>> GetEnvironmentsByAppId(int AppID)
         {
             var connectionString = this.GetConnection();
             using (var sqlConnection = new SqlConnection(connectionString))
@@ -79,7 +79,7 @@ namespace DBDevOps.DataProvider
                 await sqlConnection.OpenAsync();
                 var dynamicParameters = new DynamicParameters();
                 dynamicParameters.Add("@ApplicationID", AppID);
-                return await sqlConnection.QueryAsync<tblEnvironments>(
+                return await sqlConnection.QueryAsync<AppEnvsByAppID>(
                     "spcGetEnvironmentsByAppId",
                     dynamicParameters,
                     commandType: CommandType.StoredProcedure);

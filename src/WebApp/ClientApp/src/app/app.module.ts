@@ -9,6 +9,7 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 
 import { ApplicationsService } from './services/applicationsservice.service';
 import { EnvironmentsService } from './services/environmentsservice.service';
+import { EnvStatusService } from './services/envstatus.service';
 import { UsersService } from './services/usersservice.service';
 
 import { AppComponent } from './app.component';
@@ -58,7 +59,7 @@ import { APP_BASE_HREF } from '@angular/common';
     // { path: 'admin/edituser/:id', component: adduser }
   ],
   providers: [ ErrorStateMatcher, ShowOnDirtyErrorStateMatcher,
-    ApplicationsService, EnvironmentsService, UsersService,
+    ApplicationsService, EnvironmentsService, EnvStatusService, UsersService,
     { provide: APP_BASE_HREF, useValue: '/' }
   ],
   bootstrap: [AppComponent]

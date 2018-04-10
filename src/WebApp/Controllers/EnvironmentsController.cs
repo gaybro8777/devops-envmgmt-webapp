@@ -29,7 +29,7 @@ namespace DBDevOps.DataControllers
         // GET: api/Environments/AppID/1
         [Route("api/Environments/AppID/{id}")]
         //[HttpGet("{id}")]
-        public async Task<IEnumerable<tblEnvironments>> GetbyAppId(int id)
+        public async Task<IEnumerable<AppEnvsByAppID>> GetbyAppId(int id)
         {
             return await this.applicationsDataProvider.GetEnvironmentsByAppId(id);
         }
