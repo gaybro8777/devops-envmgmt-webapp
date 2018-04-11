@@ -13,6 +13,7 @@ import { EnvStatusService } from './services/envstatus.service';
 import { UsersService } from './services/users.service';
 
 import { AppComponent } from './app.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
@@ -29,6 +30,7 @@ import { APP_BASE_HREF } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
+    SidenavComponent,
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
