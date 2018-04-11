@@ -7,10 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 
-import { ApplicationsService } from './services/applicationsservice.service';
-import { EnvironmentsService } from './services/environmentsservice.service';
+import { ApplicationsService } from './services/applications.service';
+import { EnvironmentsService } from './services/environments.service';
 import { EnvStatusService } from './services/envstatus.service';
-import { UsersService } from './services/usersservice.service';
+import { UsersService } from './services/users.service';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';

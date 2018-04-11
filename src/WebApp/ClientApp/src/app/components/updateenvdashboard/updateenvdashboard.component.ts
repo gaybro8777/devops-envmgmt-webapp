@@ -5,8 +5,8 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { ApplicationsService } from '../../services/applicationsservice.service';
-import { EnvironmentsService } from '../../services/environmentsservice.service';
+import { ApplicationsService } from '../../services/applications.service';
+import { EnvironmentsService } from '../../services/environments.service';
 import { EnvStatusService } from '../../services/envstatus.service';
 
 import { Application } from '../../models/application';
@@ -29,8 +29,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './updateenvdashboard.component.html',
   styleUrls: ['./updateenvdashboard.component.css']
 })
-//frm: FormControl;
-//this.frm = new FormControl('asdf');
+
 export class updateenvdashboard implements OnInit {
   errorMessage: any;
   ddlApplicationValue: string;
@@ -72,7 +71,7 @@ export class updateenvdashboard implements OnInit {
   onApplicationSelected(event) {
     this.getEnvironments(event.value); 
   }
-  changeSelect() { console.log("made it"); }
+  changeSelect() { console.log('made it'); }
 
   getEnvironments(val: any) {
     this._environmentsService.getEnvironmentsByAppId(val).subscribe(data => {

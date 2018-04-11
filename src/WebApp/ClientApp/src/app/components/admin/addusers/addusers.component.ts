@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 //import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RetrieveUsersComponent } from '../retrieveusers/retrieveusers.component';
-import { UsersService } from '../../../services/usersservice.service';
+import { UsersService } from '../../../services/users.service';
 import { User } from '../../../models/user'
 
 @Component({
