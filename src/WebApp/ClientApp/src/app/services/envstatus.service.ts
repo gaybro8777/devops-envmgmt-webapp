@@ -46,16 +46,16 @@ export class EnvStatusService {
             //.catch(this.errorHandler);
     }
   handleError(error: Response) {
-    //if (error.error instanceof ErrorEvent) {
-    //  // A client-side or network error occurred. Handle it accordingly.
-    //  console.error('An error occurred:', error.error.message);
-    //} else {
-    //  // The backend returned an unsuccessful response code.
-    //  // The response body may contain clues as to what went wrong,
+    if ((<any>error).error instanceof ErrorEvent) {
+     // A client-side or network error occurred. Handle it accordingly.
+     console.error('An error occurred:', (<any>error).error.message);
+    } else {
+     // The backend returned an unsuccessful response code.
+     // The response body may contain clues as to what went wrong,
       console.error(
         `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    //}
+        `body was: ${(<any>error).error}`);
+    }
     
     return new ErrorObservable("There was an error.  Please inspect the console logs.");
   }
