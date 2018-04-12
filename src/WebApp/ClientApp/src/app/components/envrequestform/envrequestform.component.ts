@@ -56,7 +56,7 @@ export class EnvRequestForm implements OnInit {
    }
 
   ngOnInit() {
-    //this.getApplications();
+    this.getApplications();
   }
 
   getApplications() {
@@ -67,7 +67,7 @@ export class EnvRequestForm implements OnInit {
   }
 
   onApplicationSelected(event) {
-    this.getEnvironments(event.value); 
+    this.getEnvironments(event.value);
   }
   changeSelect() { console.log('made it'); }
 

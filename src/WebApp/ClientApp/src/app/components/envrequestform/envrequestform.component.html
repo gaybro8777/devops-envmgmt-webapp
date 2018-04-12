@@ -1,0 +1,78 @@
+<mat-card>
+  <!-- Title of an Card -->
+  <mat-card-title>
+    Environment Usage Request Form
+  </mat-card-title>
+  
+  <mat-card-content>
+    <form novalidate (ngSubmit)="save(f)" #f="ngForm">
+      <table border="1">
+        <tr>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="form-full-width">
+              <input matInput placeholder="Requestor" name="txtRequestor"
+                [(ngModel)]="txtRequestor" required>
+                
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="form-full-width">
+              <mat-select placeholder="Application" name="ddlApplication"
+                          #ddlApplication="ngModel" [(ngModel)]="ddlApplicationValue"
+                          (selectionChange)="onApplicationSelected($event)" required>
+                <mat-option *ngFor="let app of applicationList" [value]="app.applicationID">
+                  {{app.applicationName}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="ddlApplication.hasError('required')">Please choose an Application</mat-error>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="form-full-width">
+              <mat-select placeholder="Environment" name="ddlEnvironment"
+                          #ddlEnvironment="ngModel" [(ngModel)]="ddlEnvironmentValue" required>
+                <mat-option *ngFor="let env of environmentList" [value]="env.appEnvID">
+                  {{env.envName}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="ddlEnvironment.hasError('required')">Please choose an Environment</mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="form-full-width">
+              <input matInput placeholder="App Version" name="txtAppVersion"
+                [formControl]="txtAppVersionFormControl" [errorStateMatcher]="matcher"
+                [(ngModel)]="txtAppVersion" required>
+                <mat-hint>ex: 1.2.3 or 1.2.3.4</mat-hint>
+                <mat-error *ngIf="txtAppVersionFormControl.hasError('required')">
+                  Application Version Number is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="form-full-width">
+              <input matInput placeholder="DB Version" name="txtDBVersion"
+                     [(ngModel)]="txtDBVersion">
+              <mat-hint>ex: 1.2.3 or 1.2.3.4</mat-hint>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">{{ errorMessage }} </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="content-center">
+            <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid || txtAppVersionFormControl.hasError('required')">Save</button>
+            <button mat-raised-button color="accent" (click)="cancel()">Cancel</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </mat-card-content>
+  </mat-card>
+  

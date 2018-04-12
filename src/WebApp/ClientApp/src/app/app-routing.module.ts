@@ -7,6 +7,7 @@ import { adminhomepage } from './components/admin/adminhomepage/adminhomepage.co
 import { RetrieveUsersComponent } from './components/admin/retrieveusers/retrieveusers.component';
 import { adduser } from './components/admin/addusers/addusers.component';
 import { updateenvdashboard } from './components/updateenvdashboard/updateenvdashboard.component';
+import { EnvRequestForm } from './components/envrequestform/envrequestform.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'admin/retrieve-user', component: RetrieveUsersComponent },
   { path: 'admin/adduser', component: adduser },
   { path: 'admin/adduser/:id', component: adduser },
+  { path: 'envrequestform', component: EnvRequestForm},
   { path: 'updateenvdashboard', component: updateenvdashboard },
   { path: '**', redirectTo: 'home' }
 ];

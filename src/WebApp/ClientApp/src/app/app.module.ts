@@ -22,14 +22,14 @@ import { adminhomepage } from './components/admin/adminhomepage/adminhomepage.co
 import { RetrieveUsersComponent } from './components/admin/retrieveusers/retrieveusers.component';
 import { adduser } from './components/admin/addusers/addusers.component';
 import { updateenvdashboard } from './components/updateenvdashboard/updateenvdashboard.component';
-
+import { EnvRequestForm } from './components/envrequestform/envrequestform.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     adminhomepage,
-    RetrieveUsersComponent, adduser, updateenvdashboard
+    RetrieveUsersComponent, adduser, updateenvdashboard, EnvRequestForm
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
