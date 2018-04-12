@@ -1,12 +1,15 @@
 <!-- app-nav-menu></app-nav-menu -->
-<mat-sidenav-container style="height:100%">
-  <mat-sidenav #sidenav mode="over" opened="false">
+<mat-sidenav-container style="height:100%"  opened="true">
+  <mat-sidenav #sidenav mode="side" opened="true">
     <side-nav-menu title='Menu' [sidenav]="sidenav">
       <side-nav-item route="/home" title="Home" icon="home"></side-nav-item>
-      <side-nav-item route="/counter" title="Counter" icon="assessment"></side-nav-item>
+      <side-nav-item route="/updateenvdashboard" title="Update Environment Status" icon="assessment"></side-nav-item>
 
-      
-      <side-nav-item route="/admin" title="Admin" icon="business"></side-nav-item>
+      <side-nav-group title="Administration">
+        <side-nav-item route="/admin" title="Admin" icon="business"></side-nav-item>
+        <side-nav-item route="/admin/retrieve-user" title="Users" icon="group"></side-nav-item>
+        <side-nav-item route="/admin/adduser" title="Add User" icon="group_add"></side-nav-item>
+      </side-nav-group>
     </side-nav-menu>
   </mat-sidenav>
 
