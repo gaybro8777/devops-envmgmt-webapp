@@ -1,10 +1,23 @@
-<div class='container-fluid'>
-  <div class='row'>
-    <div class='col-sm-3'>
-      <app-nav-menu></app-nav-menu>
-    </div>
-    <div class='col-sm-9 body-content'>
-      <router-outlet></router-outlet>
-    </div>
+<!-- app-nav-menu></app-nav-menu -->
+<mat-sidenav-container style="height:100%">
+  <mat-sidenav #sidenav mode="over" opened="false">
+    <side-nav-menu title='Menu' [sidenav]="sidenav">
+      <side-nav-item route="/home" title="Home" icon="home"></side-nav-item>
+      <side-nav-item route="/counter" title="Counter" icon="assessment"></side-nav-item>
+
+      
+      <side-nav-item route="/admin" title="Admin" icon="business"></side-nav-item>
+    </side-nav-menu>
+  </mat-sidenav>
+
+
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+    <span>Environment Management Tool</span>
+  </mat-toolbar>
+
+  <div style="text-align:center;width:100%">
+    <router-outlet></router-outlet>
   </div>
-</div>
+
+</mat-sidenav-container>

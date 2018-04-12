@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,26 +14,20 @@ import { EnvStatusService } from './services/envstatus.service';
 import { UsersService } from './services/users.service';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { AppRoutingModule } from './app-routing.module';
+import { StateService } from './state-service';
 
+import { HomeComponent } from './components/home/home.component';
 import { adminhomepage } from './components/admin/adminhomepage/adminhomepage.component';
 import { RetrieveUsersComponent } from './components/admin/retrieveusers/retrieveusers.component';
 import { adduser } from './components/admin/addusers/addusers.component';
 import { updateenvdashboard } from './components/updateenvdashboard/updateenvdashboard.component';
 
-import { APP_BASE_HREF } from '@angular/common';
-
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     adminhomepage,
     RetrieveUsersComponent, adduser, updateenvdashboard
   ],
@@ -42,25 +37,26 @@ import { APP_BASE_HREF } from '@angular/common';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule, ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'admin', component: adminhomepage },
-      { path: 'admin/retrieve-user', component: RetrieveUsersComponent },
-      { path: 'admin/adduser', component: adduser },
-      { path: 'admin/adduser/:id', component: adduser },
-      { path: 'updateenvdashboard', component: updateenvdashboard },
-      { path: '**', redirectTo: 'home' }
-    ])
+    AppRoutingModule,
+    // RouterModule.forRoot([
+    //   { path: '', component: HomeComponent, pathMatch: 'full' },
+    //   { path: 'home', component: HomeComponent },
+    //   { path: 'counter', component: CounterComponent },
+    //   { path: 'fetch-data', component: FetchDataComponent },
+    //   { path: 'admin', component: adminhomepage },
+    //   { path: 'admin/retrieve-user', component: RetrieveUsersComponent },
+    //   { path: 'admin/adduser', component: adduser },
+    //   { path: 'admin/adduser/:id', component: adduser },
+    //   { path: 'updateenvdashboard', component: updateenvdashboard },
+    //   { path: '**', redirectTo: 'home' }
+    // ])
     // { path: '', component: HomeComponent, pathMatch: 'full' },
     // { path: 'admin/adduser', component: adduser },
     // { path: 'admin/edituser/:id', component: adduser }
   ],
   providers: [ ErrorStateMatcher, ShowOnDirtyErrorStateMatcher,
     ApplicationsService, EnvironmentsService, EnvStatusService, UsersService,
-    { provide: APP_BASE_HREF, useValue: '/' }
+    StateService
   ],
   bootstrap: [AppComponent]
 })
