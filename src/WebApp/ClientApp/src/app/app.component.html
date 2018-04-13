@@ -25,7 +25,14 @@
 
   <mat-toolbar color="primary">
     <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
-    <span>Environment Management Tool</span>
+    <table border="1">
+      <tr>
+        <td width="100%" align="center"><span>Environment Management Tool</span></td>
+        <td><span>{{ loginname }}</span></td>
+      </tr>
+    </table>
+    
+    
   </mat-toolbar>
 
   <div style="text-align:center;width:100%">

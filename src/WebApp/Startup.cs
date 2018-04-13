@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using DevOpsEnvMgmt.Models;
+using Microsoft.AspNetCore.Server.IISIntegration;
+using Microsoft.AspNetCore.Server.HttpSys;
+
 
 namespace DevOpsEnvMgmt
 {
@@ -38,6 +41,10 @@ namespace DevOpsEnvMgmt
             services.AddScoped<DBDevOps.DataProvider.IUserRoles, DBDevOps.DataProvider.UserRolesDataProvider>();
             services.AddScoped<DBDevOps.DataProvider.IUsers, DBDevOps.DataProvider.UsersDataProvider>();
 
+
+            // Enable CORS before services.AddMvc()
+            // services.AddCors();
+
             services.AddMvc();
 			
 			services.AddSingleton<IConfiguration>(Configuration);
@@ -48,6 +55,9 @@ namespace DevOpsEnvMgmt
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+            //services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +77,14 @@ namespace DevOpsEnvMgmt
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            // Used with CORS: Allow any method to use API
+            //app.UseCors(options => options.WithOrigins("http://localhost").AllowAnyMethod());
+            //app.UseCors(builder => builder
+            //    .AllowAnyOrigin()
+            //    .AllowAnyMethod()
+            //    .AllowAnyHeader()
+            //    .AllowCredentials());
 
             app.UseStaticFiles();
             // Uncomment for SPA.

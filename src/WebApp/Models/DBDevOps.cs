@@ -1,3 +1,6 @@
+using System;
+using System.Threading.Tasks;
+
 namespace DBDevOps.Models
 {
       
@@ -112,6 +115,20 @@ namespace DBDevOps.Models
     public class apiResult
     {
         public string status { get; set; }
+    }
+
+    public class AuthenticationResult
+    {
+        public string AuthenticationType { get; set; }
+        public string IsAuthenticated { get; set; }
+        public string Name { get; set; }
+        public string Domain { get; set; }
+        public string Login { get; set; }
+
+        //public static implicit operator Task<object>(AuthenticationResult v)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
 

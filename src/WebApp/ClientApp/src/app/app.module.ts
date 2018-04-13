@@ -2,12 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 
+import { AuthenticationService } from './services/authentication.service';
 import { ApplicationsService } from './services/applications.service';
 import { EnvironmentsService } from './services/environments.service';
 import { EnvStatusService } from './services/envstatus.service';
@@ -54,7 +55,7 @@ import { EnvRequestForm } from './components/envrequestform/envrequestform.compo
     // { path: 'admin/adduser', component: adduser },
     // { path: 'admin/edituser/:id', component: adduser }
   ],
-  providers: [ ErrorStateMatcher, ShowOnDirtyErrorStateMatcher,
+  providers: [ ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, AuthenticationService, 
     ApplicationsService, EnvironmentsService, EnvStatusService, UsersService,
     StateService
   ],
