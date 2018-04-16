@@ -15,7 +15,7 @@ export class AuthenticationService {
   }
 
   getUser() {
-    console.log('Calling getUser');
+    //console.log('Calling getUser');
     //: Observable<string>
     //return this._http.get(this.myAppUrl + 'auth/getuser', { responseType: 'text' })
     return this._http.get(this.myAppUrl + 'auth/getuser')

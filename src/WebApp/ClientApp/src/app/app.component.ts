@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       this.loginname = this.authObj.login;
     });
 
-    console.log("Login: " + this.authObj.login);
-    console.log(this.authObj.login);
+    //console.log("Login: " + this.authObj.login);
+    //console.log(this.authObj.login);
   }
 }

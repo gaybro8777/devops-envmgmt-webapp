@@ -3,7 +3,7 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 mat-card {
-  max-width: 70%;
+  max-width: 90%;
   margin: 2em auto;
   text-align: center;
 }

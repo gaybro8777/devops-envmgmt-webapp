@@ -6,16 +6,43 @@
   
   <mat-card-content>
     <form novalidate (ngSubmit)="save(f)" #f="ngForm">
-      <table border="1">
-        <tr>
-          <td colspan="2"></td>
-        </tr>
+      <table border="0">
+        <tr><td colspan="4" wrap>For Integration Testing with other applications, a new Environment Request form will need to be submitted.  Add to the Misc. Notes section that a request is related to another request.</td></tr>
+        <tr><td>&nbsp;</td></tr>
         <tr>
           <td>
             <mat-form-field class="form-full-width">
               <input matInput placeholder="Requestor" name="txtRequestor"
-                [(ngModel)]="txtRequestor" required>
-                
+                     [(ngModel)]="txtRequestor" disabled required>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="form-full-width">
+              <input matInput placeholder="Usage Owner" name="txtUsageOwner"
+                     [(ngModel)]="txtUsageOwner">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput [matDatepicker]="releaseDatePicker" placeholder="Release Date" disabled
+                     (dateChange)="dateChangeReleaseDate($event.value)">
+              <mat-datepicker-toggle matSuffix [for]="releaseDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #releaseDatePicker disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+          <td>
+            <mat-form-field class="form-full-width">
+              <mat-select placeholder="Project Team" name="ddlProjectTeam"
+                          #ddlProjectTeam="ngModel" [(ngModel)]="ddlProjectTeamValue"
+                          (selectionChange)="onddlProjectTeamSelected($event)" required>
+                <mat-option *ngFor="let proj of projectTeamList" [value]="proj.projectTeamID">
+                  {{proj.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="ddlProjectTeam.hasError('required')">Please choose a Project Team</mat-error>
             </mat-form-field>
           </td>
           <td>
@@ -42,16 +69,17 @@
             </mat-form-field>
           </td>
         </tr>
+        <tr><td>&nbsp;</td></tr>
         <tr>
           <td>
             <mat-form-field class="form-full-width">
               <input matInput placeholder="App Version" name="txtAppVersion"
-                [formControl]="txtAppVersionFormControl" [errorStateMatcher]="matcher"
-                [(ngModel)]="txtAppVersion" required>
-                <mat-hint>ex: 1.2.3 or 1.2.3.4</mat-hint>
-                <mat-error *ngIf="txtAppVersionFormControl.hasError('required')">
-                  Application Version Number is <strong>required</strong>
-                </mat-error>
+                     [formControl]="txtAppVersionFormControl" [errorStateMatcher]="matcher"
+                     [(ngModel)]="txtAppVersion" required>
+              <mat-hint>ex: 1.2.3 or 1.2.3.4</mat-hint>
+              <mat-error *ngIf="txtAppVersionFormControl.hasError('required')">
+                Application Version Number is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
           </td>
           <td>
@@ -62,11 +90,52 @@
             </mat-form-field>
           </td>
         </tr>
+        <tr><td>&nbsp;</td></tr>
         <tr>
-          <td colspan="2">{{ errorMessage }} </td>
+          <td>
+            <mat-form-field>
+              <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date" disabled>
+              <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #startDatePicker disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput [matTimepicker]="startTimePicker" placeholder="Start Time" disabled>
+              <mat-timepicker-toggle matSuffix [for]="startTimePicker"></mat-timepicker-toggle>
+              <mat-timepicker #startTimePicker color="primary" disabled="false"></mat-timepicker>
+            </mat-form-field>
+          </td>
+
+          <td>
+            <mat-form-field>
+              <input matInput [matDatepicker]="endDatePicker" placeholder="End Date" disabled>
+              <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput [matTimepicker]="endTimePicker" placeholder="Start Time" disabled>
+              <mat-timepicker-toggle matSuffix [for]="endTimePicker"></mat-timepicker-toggle>
+              <mat-timepicker #endTimePicker color="primary" disabled="false"></mat-timepicker>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+          <td colspan="4">
+            <mat-form-field class="form-full-width">
+              <textarea matInput placeholder="Miscellaneous Notes"></textarea>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+          <td colspan="4">{{ errorMessage }} </td>
         </tr>
         <tr>
-          <td colspan="2" class="content-center">
+          <td colspan="4" class="content-center">
             <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid || txtAppVersionFormControl.hasError('required')">Save</button>
             <button mat-raised-button color="accent" (click)="cancel()">Cancel</button>
           </td>
@@ -75,4 +144,3 @@
     </form>
   </mat-card-content>
   </mat-card>
-  

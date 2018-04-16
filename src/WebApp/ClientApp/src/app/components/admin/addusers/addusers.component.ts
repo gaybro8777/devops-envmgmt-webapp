@@ -43,22 +43,21 @@ export class adduser implements OnInit {
     }
 
     save(f) {
-      //if (!this.userForm.valid) {
+      // if (!this.userForm.valid) {
       // return;
-      //}
+      // }
         if (this.title == "Create") {
             this._userService.saveUser(this.user)
                 .subscribe((data) => {
                   this._router.navigate(['admin/retrieve-user']);
                 }, error => this.errorMessage = error)
-          //console.info(f.value);
+          // console.info(f.value);
         }
         else if (this.title == "Edit") {
             this._userService.updateUser(this.id, this.user).subscribe((data) => {
                 if (data.status == 'success') {
                   this._router.navigate(['admin/retrieve-user']);
-                }
-                else {
+                } else {
                     console.log("API Error: The Update API returned status of: failure.")
                     throw new Error('The Update API call failed.');
                 }

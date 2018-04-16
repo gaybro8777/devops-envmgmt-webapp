@@ -12,6 +12,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { ApplicationsService } from './services/applications.service';
 import { EnvironmentsService } from './services/environments.service';
 import { EnvStatusService } from './services/envstatus.service';
+import { ProjectTeamService } from './services/projectteam.service';
 import { UsersService } from './services/users.service';
 
 import { AppComponent } from './app.component';
@@ -56,7 +57,7 @@ import { EnvRequestForm } from './components/envrequestform/envrequestform.compo
     // { path: 'admin/edituser/:id', component: adduser }
   ],
   providers: [ ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, AuthenticationService, 
-    ApplicationsService, EnvironmentsService, EnvStatusService, UsersService,
+    ApplicationsService, EnvironmentsService, EnvStatusService, ProjectTeamService, UsersService,
     StateService
   ],
   bootstrap: [AppComponent]
