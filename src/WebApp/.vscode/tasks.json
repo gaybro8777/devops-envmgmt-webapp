@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/devops-envmgmt-app.csproj"
+                "${workspaceFolder}/WebApp.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

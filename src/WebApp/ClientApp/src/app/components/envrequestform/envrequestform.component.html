@@ -94,31 +94,38 @@
         <tr>
           <td>
             <mat-form-field>
-              <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date" disabled>
+              <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date"
+                     (dateChange)="dateChangeStartDate($event.value)"
+                     [formControl]="startDatePickerControl" [errorStateMatcher]="matcher">
               <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #startDatePicker disabled="false"></mat-datepicker>
+              <mat-error *ngIf="startDatePickerControl.hasError('required')">
+                Start Date is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
           </td>
           <td>
             <mat-form-field>
-              <input matInput [matTimepicker]="startTimePicker" placeholder="Start Time" disabled>
-              <mat-timepicker-toggle matSuffix [for]="startTimePicker"></mat-timepicker-toggle>
+              <input matInput [matTimepicker]="startTimePicker" placeholder="Start Time">
+              <mat-timepicker-toggle matSuffix [for]="startTimePicker"  (userTimeChange)="onChangeStartTime(startTimePicker.userTime)"></mat-timepicker-toggle>
               <mat-timepicker #startTimePicker color="primary" disabled="false"></mat-timepicker>
             </mat-form-field>
           </td>
 
           <td>
             <mat-form-field>
-              <input matInput [matDatepicker]="endDatePicker" placeholder="End Date" disabled>
+              <input matInput [matDatepicker]="endDatePicker" placeholder="End Date"
+                     (dateChange)="dateChangeEndDate($event.value)"
+                     [formControl]="endDatePickerControl" [errorStateMatcher]="matcher">
               <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #endDatePicker disabled="false"></mat-datepicker>
             </mat-form-field>
           </td>
           <td>
             <mat-form-field>
-              <input matInput [matTimepicker]="endTimePicker" placeholder="Start Time" disabled>
-              <mat-timepicker-toggle matSuffix [for]="endTimePicker"></mat-timepicker-toggle>
-              <mat-timepicker #endTimePicker color="primary" disabled="false"></mat-timepicker>
+              <input matInput [matTimepicker]="endTimePicker" placeholder="End Time">
+              <mat-timepicker-toggle matSuffix [for]="endTimePicker"  (userTimeChange)="onChangeEndTime(endTimePicker.userTime)"></mat-timepicker-toggle>
+              <mat-timepicker #endTimePicker color="primary"></mat-timepicker>
             </mat-form-field>
           </td>
         </tr>
@@ -136,7 +143,7 @@
         </tr>
         <tr>
           <td colspan="4" class="content-center">
-            <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid || txtAppVersionFormControl.hasError('required')">Save</button>
+            <button mat-raised-button color="primary" type="submit">Save</button>
             <button mat-raised-button color="accent" (click)="cancel()">Cancel</button>
           </td>
         </tr>

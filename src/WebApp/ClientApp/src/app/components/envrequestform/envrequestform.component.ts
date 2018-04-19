@@ -17,6 +17,8 @@ import { Environment } from '../../models/environment';
 import { EnvStatus } from '../../models/envstatus';
 import { ProjectTeam } from '../../models/projectteam';
 
+import { MatSnackBar } from '@angular/material';
+
 import * as moment from 'moment';
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -58,12 +60,20 @@ export class EnvRequestForm implements OnInit {
     dateTimeDeployed: ''
   };
 
+  startDatePicker: string;
+  startDatePickerControl = new FormControl({ value: '', disabled: true }, [Validators.required]);
+  startTimePicker: string;
+  endDatePicker: string;
+  endDatePickerControl = new FormControl({ value: '', disabled: true }, [Validators.required]);
+  endTimePicker: string;
+
   constructor(public http: HttpClient, private _router: Router, private _avRoute: ActivatedRoute,
     private _authenticationService: AuthenticationService,
     private _applicationsService: ApplicationsService,
     private _environmentsService: EnvironmentsService,
     private _envStatusService: EnvStatusService,
-    private _projectTeamService: ProjectTeamService) {
+    private _projectTeamService: ProjectTeamService,
+    public snackBar: MatSnackBar) {
    }
 
   ngOnInit() {
@@ -117,15 +127,70 @@ export class EnvRequestForm implements OnInit {
   }
 
   dateChangeReleaseDate(val: any) {
-    console.log(val);
+    this.releaseDatePicker = val;
   }
+
+  dateChangeStartDate(val: any) {
+    let startDT = moment(val);
+    this.startDatePicker = startDT.format('YYYY-MM-DD');
+  }
+  dateChangeEndDate(val: any) {
+    let startDT = moment(val);
+    this.endDatePicker = startDT.format('YYYY-MM-DD');
+  }
+
+  onChangeStartTime(val: any) {
+    let startTime = moment();
+    startTime.hour(this.Convert12to24Hour(val.hour, val.meriden));
+    startTime.minute(val.minute);
+    this.startTimePicker = startTime.format('LT');
+  }
+  onChangeEndTime(val: any) {
+    //console.log(val);
+    let endTime = moment();
+    endTime.hour(this.Convert12to24Hour(val.hour, val.meriden));
+    //console.log(this.Convert12to24Hour(val.hour, val.meriden));
+    endTime.minute(val.minute);
+    
+    //endTime.format(val.meriden.toLowerCase());
+    // endTime.format('p');
+    //console.log(endTime.format('LT'));
+    this.endTimePicker = endTime.format('LT');
+  }
+  Convert12to24Hour(Hour: number, Meridiem: string): number {
+    let calculated24Hour = Hour;
+    //console.log("Meridiem: " + Meridiem);
+   // console.log("Hour: " + Hour.toString());
+    if (Meridiem == 'PM' && Hour < 12) {
+      calculated24Hour = Hour + 12;
+      //console.log("calculated24Hour: " + calculated24Hour.toString());
+    }
+    if (Meridiem == 'AM' && Hour == 12) {
+      calculated24Hour = Hour - 12;
+      //console.log("calculated24Hour12: " + calculated24Hour.toString());
+    }
+    //console.log("about to return: " + calculated24Hour.toString());
+    return calculated24Hour;
+  }
+
 
 
   save(f) {
     // console.log(f);
+    this.snackBar.open("saving!", null, { duration: 500, });
     console.log("txtRequestor: " + this.txtRequestor);
     console.log("txtUsageOwner: " + this.txtUsageOwner);
     console.log("releaseDatePicker: " + this.releaseDatePicker);
+    console.log("ddlProjectTeamValue: " + this.ddlProjectTeamValue);
+    console.log("ddlApplicationValue: " + this.ddlApplicationValue);
+    console.log("ddlEnvironmentValue: " + this.ddlEnvironmentValue);
+    console.log("txtAppVersion: " + this.txtAppVersion);
+    console.log("txtDBVersion: " + this.txtDBVersion);
+    console.log("startDatePicker: " + this.startDatePicker);
+    console.log("endDatePicker: " + this.endDatePicker);
+    console.log("startTimePicker: " + this.startTimePicker);
+    console.log("endTimePicker: " + this.endTimePicker);
+
   }
 
   cancel() {
