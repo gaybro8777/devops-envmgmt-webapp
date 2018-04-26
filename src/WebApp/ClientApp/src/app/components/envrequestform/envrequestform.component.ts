@@ -14,12 +14,14 @@ import { ProjectTeamService } from '../../services/projectteam.service';
 import { Application } from '../../models/application';
 import { AppEnvsByAppID } from '../../models/appenvsbyappid';
 import { Environment } from '../../models/environment';
+import { EnvRequests } from '../../models/envrequests';
 import { EnvStatus } from '../../models/envstatus';
 import { ProjectTeam } from '../../models/projectteam';
 
 import { MatSnackBar } from '@angular/material';
 
 import * as moment from 'moment';
+//import * as actdir from 'activedirectory2';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -36,6 +38,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 
 export class EnvRequestForm implements OnInit {
+  ldapconfig = {
+    url: 'ldap://MOTADCPRD0013.motiva.prv',
+    baseDN: 'dc=motiva,dc=prv,OU=users'
+  }
+  //ad = new actdir(ldapconfig);
+
   errorMessage: any;
   txtRequestor: string;
   txtUsageOwner: string;
@@ -67,6 +75,20 @@ export class EnvRequestForm implements OnInit {
   endDatePickerControl = new FormControl({ value: '', disabled: true }, [Validators.required]);
   endTimePicker: string;
 
+  _envRequests: EnvRequests = {
+    envRequestID: 0,
+    requestorID: 0,
+    ownerID: 0,
+    releaseID: 0,
+    applicationID: 0,
+    dateFrom: '',
+    timeFrom: '',
+    dateTo: '',
+    timeTo: '',
+    envReqStatusTypesID: 0,
+    notes: ''
+  };
+
   constructor(public http: HttpClient, private _router: Router, private _avRoute: ActivatedRoute,
     private _authenticationService: AuthenticationService,
     private _applicationsService: ApplicationsService,
@@ -80,6 +102,9 @@ export class EnvRequestForm implements OnInit {
     this.getUserInfo();
     this.getProjectTeams();
     // this.getApplications(0);
+    //this._authenticationService.get('MOTADCPRD0013.motiva.prv');
+    //console.log(this._authenticationService.sneak());
+    this._authenticationService.sneak();
   }
 
   getUserInfo() {
@@ -127,7 +152,8 @@ export class EnvRequestForm implements OnInit {
   }
 
   dateChangeReleaseDate(val: any) {
-    this.releaseDatePicker = val;
+    let releaseDT = moment(val);
+    this.releaseDatePicker = releaseDT.format('YYYY-MM-DD');
   }
 
   dateChangeStartDate(val: any) {
@@ -146,30 +172,19 @@ export class EnvRequestForm implements OnInit {
     this.startTimePicker = startTime.format('LT');
   }
   onChangeEndTime(val: any) {
-    //console.log(val);
     let endTime = moment();
     endTime.hour(this.Convert12to24Hour(val.hour, val.meriden));
-    //console.log(this.Convert12to24Hour(val.hour, val.meriden));
     endTime.minute(val.minute);
-    
-    //endTime.format(val.meriden.toLowerCase());
-    // endTime.format('p');
-    //console.log(endTime.format('LT'));
     this.endTimePicker = endTime.format('LT');
   }
   Convert12to24Hour(Hour: number, Meridiem: string): number {
     let calculated24Hour = Hour;
-    //console.log("Meridiem: " + Meridiem);
-   // console.log("Hour: " + Hour.toString());
     if (Meridiem == 'PM' && Hour < 12) {
       calculated24Hour = Hour + 12;
-      //console.log("calculated24Hour: " + calculated24Hour.toString());
     }
     if (Meridiem == 'AM' && Hour == 12) {
       calculated24Hour = Hour - 12;
-      //console.log("calculated24Hour12: " + calculated24Hour.toString());
     }
-    //console.log("about to return: " + calculated24Hour.toString());
     return calculated24Hour;
   }
 
@@ -177,19 +192,32 @@ export class EnvRequestForm implements OnInit {
 
   save(f) {
     // console.log(f);
-    this.snackBar.open("saving!", null, { duration: 500, });
-    console.log("txtRequestor: " + this.txtRequestor);
-    console.log("txtUsageOwner: " + this.txtUsageOwner);
-    console.log("releaseDatePicker: " + this.releaseDatePicker);
-    console.log("ddlProjectTeamValue: " + this.ddlProjectTeamValue);
+    this.snackBar.open("saving!", null, { duration: 400, });
+    console.log("txtRequestor: " + this.txtRequestor); // missing in db
+    console.log("txtUsageOwner: " + this.txtUsageOwner); // missing in db
+    console.log("releaseDatePicker: " + this.releaseDatePicker); // missing in db
+    console.log("ddlProjectTeamValue: " + this.ddlProjectTeamValue); // missing in db
     console.log("ddlApplicationValue: " + this.ddlApplicationValue);
-    console.log("ddlEnvironmentValue: " + this.ddlEnvironmentValue);
-    console.log("txtAppVersion: " + this.txtAppVersion);
-    console.log("txtDBVersion: " + this.txtDBVersion);
+    console.log("ddlEnvironmentValue: " + this.ddlEnvironmentValue); // missing in db
+    console.log("txtAppVersion: " + this.txtAppVersion); // missing in db
+    console.log("txtDBVersion: " + this.txtDBVersion); // missing in db
     console.log("startDatePicker: " + this.startDatePicker);
     console.log("endDatePicker: " + this.endDatePicker);
     console.log("startTimePicker: " + this.startTimePicker);
     console.log("endTimePicker: " + this.endTimePicker);
+
+    this._envRequests.envRequestID = 0;
+    this._envRequests.requestorID = 0;
+    this._envRequests.ownerID = 0;
+    this._envRequests.releaseID = 0;
+    this._envRequests.applicationID = 0;
+    this._envRequests.dateFrom = this.startDatePicker;
+    this._envRequests.timeFrom = this.startTimePicker;
+    this._envRequests.dateTo = this.endDatePicker;
+    this._envRequests.timeTo = this.endTimePicker;
+    this._envRequests.envReqStatusTypesID = 0;
+    this._envRequests.notes = '';
+
 
   }
 

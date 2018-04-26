@@ -79,12 +79,12 @@ namespace DevOpsEnvMgmt
             }
 
             // Used with CORS: Allow any method to use API
-            //app.UseCors(options => options.WithOrigins("http://localhost").AllowAnyMethod());
-            //app.UseCors(builder => builder
-            //    .AllowAnyOrigin()
-            //    .AllowAnyMethod()
-            //    .AllowAnyHeader()
-            //    .AllowCredentials());
+            app.UseCors(options => options.WithOrigins("http://localhost").AllowAnyMethod());
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             app.UseStaticFiles();
             // Uncomment for SPA.

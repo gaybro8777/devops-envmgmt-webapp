@@ -64,3 +64,7 @@ div.mat-expansion-panel-body {
   padding-right: 0px;
   padding-left: 0px;
 }
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}

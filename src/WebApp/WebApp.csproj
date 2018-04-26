@@ -12,9 +12,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.4" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
@@ -27,6 +29,7 @@
     <None Remove="ClientApp\src\app\material.module.ts" />
     <None Remove="ClientApp\src\app\models\authenticationresult.ts" />
     <None Remove="ClientApp\src\app\models\envstatus.ts" />
+    <None Remove="ClientApp\src\app\models\hpalmdt1.datatable.ts" />
     <None Remove="ClientApp\src\app\models\user.ts" />
     <None Remove="ClientApp\src\app\services\authentication.service.ts" />
     <None Remove="ClientApp\src\app\state-service.ts" />
@@ -35,6 +38,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\material.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\envstatus.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\authenticationresult.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\hpalmdt1.datatable.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\user.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\services\authentication.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\state-service.ts" />

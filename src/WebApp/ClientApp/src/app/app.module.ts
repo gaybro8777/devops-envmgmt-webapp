@@ -14,6 +14,7 @@ import { EnvironmentsService } from './services/environments.service';
 import { EnvStatusService } from './services/envstatus.service';
 import { ProjectTeamService } from './services/projectteam.service';
 import { UsersService } from './services/users.service';
+import { HPALMService } from './services/hpalm.dashboard1.service';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -25,13 +26,17 @@ import { RetrieveUsersComponent } from './components/admin/retrieveusers/retriev
 import { adduser } from './components/admin/addusers/addusers.component';
 import { updateenvdashboard } from './components/updateenvdashboard/updateenvdashboard.component';
 import { EnvRequestForm } from './components/envrequestform/envrequestform.component';
+import { TableComponent } from './components/hpalm-dashboard/hpalm-dashboard.component';
+import { CdkDetailRowDirective } from './components/hpalm-dashboard/cdk-detail-row.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     adminhomepage,
-    RetrieveUsersComponent, adduser, updateenvdashboard, EnvRequestForm
+    RetrieveUsersComponent, adduser, updateenvdashboard, EnvRequestForm,
+    TableComponent,
+    CdkDetailRowDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -58,7 +63,7 @@ import { EnvRequestForm } from './components/envrequestform/envrequestform.compo
   ],
   providers: [ ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, AuthenticationService, 
     ApplicationsService, EnvironmentsService, EnvStatusService, ProjectTeamService, UsersService,
-    StateService
+    StateService, HPALMService
   ],
   bootstrap: [AppComponent]
 })

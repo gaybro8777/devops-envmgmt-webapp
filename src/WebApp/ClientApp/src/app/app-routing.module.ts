@@ -9,6 +9,9 @@ import { adduser } from './components/admin/addusers/addusers.component';
 import { updateenvdashboard } from './components/updateenvdashboard/updateenvdashboard.component';
 import { EnvRequestForm } from './components/envrequestform/envrequestform.component';
 
+import { TableComponent } from './components/hpalm-dashboard/hpalm-dashboard.component';
+import { CdkDetailRowDirective } from './components/hpalm-dashboard/cdk-detail-row.directive';
+
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -18,6 +21,7 @@ const routes: Routes = [
   { path: 'admin/adduser/:id', component: adduser },
   { path: 'envrequestform', component: EnvRequestForm},
   { path: 'updateenvdashboard', component: updateenvdashboard },
+  { path: 'hpalmdashboard', component: TableComponent },
   { path: '**', redirectTo: 'home' }
 ];
 
