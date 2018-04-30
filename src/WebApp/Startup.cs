@@ -41,6 +41,7 @@ namespace DevOpsEnvMgmt
             services.AddScoped<DBDevOps.DataProvider.IUserRoles, DBDevOps.DataProvider.UserRolesDataProvider>();
             services.AddScoped<DBDevOps.DataProvider.IUsers, DBDevOps.DataProvider.UsersDataProvider>();
 
+            //services.AddScoped<DBDevOps.DataControllers.WinAuthController>();
 
             // Enable CORS before services.AddMvc()
             // services.AddCors();
@@ -94,7 +95,7 @@ namespace DevOpsEnvMgmt
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
 
                 // for non-SPA.
                 routes.MapSpaFallbackRoute(

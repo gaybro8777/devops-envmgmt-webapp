@@ -21,15 +21,16 @@ const routes: Routes = [
   { path: 'admin/adduser/:id', component: adduser },
   { path: 'envrequestform', component: EnvRequestForm},
   { path: 'updateenvdashboard', component: updateenvdashboard },
-  { path: 'hpalmdashboard', component: TableComponent },
-  { path: '**', redirectTo: 'home' }
+  { path: 'hpalmdashboard', component: TableComponent }
+  
 ];
-
+//,
+//{ path: '**', redirectTo: 'home' }
 
 @NgModule({
   imports: [
     BrowserModule,
-    RouterModule.forRoot( routes, { useHash: true } ),
+    RouterModule.forRoot( routes, { useHash: false } ),
   ],
   providers: [  ],
   declarations: [ ],

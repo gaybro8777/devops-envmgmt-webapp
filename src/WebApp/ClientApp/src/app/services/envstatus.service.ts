@@ -57,6 +57,6 @@ export class EnvStatusService {
         `body was: ${(<any>error).error}`);
     }
     
-    return new ErrorObservable("There was an error.  Please inspect the console logs.");
+    return new ErrorObservable("There was an error from envstatus.service.ts.  Please inspect the console logs.");
   }
 }

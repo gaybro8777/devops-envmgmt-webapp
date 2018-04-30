@@ -36,7 +36,7 @@ export class AuthenticationService {
     //console.log('Calling getUser');
     //: Observable<string>
     //return this._http.get(this.myAppUrl + 'auth/getuser', { responseType: 'text' })
-    return this._http.get(this.myAppUrl + 'auth/getuser')
+    return this._http.get(this.myAppUrl + 'api/getauthuser')
       .pipe(catchError(this.handleError));
       //.map((rslt: string) => {
       //  return rslt;
@@ -109,6 +109,6 @@ export class AuthenticationService {
         `body was: ${(<any>error).error}`);
     }
 
-    return new ErrorObservable("There was an error.  Please inspect the console logs.");
+    return new ErrorObservable("There was an error from authentication.service.ts.  Please inspect the console logs.");
   }
 }

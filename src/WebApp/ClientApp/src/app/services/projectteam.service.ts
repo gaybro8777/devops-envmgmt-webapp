@@ -57,6 +57,6 @@ export class ProjectTeamService {
         `body was: ${(<any>error).error}`);
     }
     
-    return new ErrorObservable("There was an error.  Please inspect the console logs.");
+    return new ErrorObservable("There was an error from projectteam.service.ts.  Please inspect the console logs.");
   }
 }
