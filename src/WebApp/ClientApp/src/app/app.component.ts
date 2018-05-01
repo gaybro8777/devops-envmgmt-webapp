@@ -31,7 +31,11 @@ export class AppComponent implements OnInit {
       this.authObj = data;
       //console.log(data);
       //console.log(this.authObj.login);
-      this.loginname = this.authObj.login;
+      if (this.authObj.login != "unknown") {
+        this.loginname = this.authObj.login;
+      }
+    }, err => {
+      console.log(err);
     });
 
     //console.log("Login: " + this.authObj.login);

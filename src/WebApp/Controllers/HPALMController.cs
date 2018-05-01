@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Xml;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace DevOpsEnvMgmt.Controllers
 {
     [Route("api/HPALM")]
     public class HPALMController : Controller
     {
+        #region NOT USED
         // GET: api/<controller>
         //[Route("api/HPALM/{relid}")]
         //[HttpGet("{relid}")]
@@ -62,11 +59,14 @@ namespace DevOpsEnvMgmt.Controllers
         //        // return new string[] { "value1", "value2" };
         //    }
         //}
+        #endregion
 
         // GET api/<controller>/5
         [HttpGet("{relid}")]
         public async Task<string> Get(int relid)
         {
+
+            #region Sample json
             //          string someJson = @"{
             //  ""entities"": [
             //    {
@@ -346,6 +346,7 @@ namespace DevOpsEnvMgmt.Controllers
             //}";
 
             //          return someJson;
+            #endregion
 
             using (var client = new HttpClient())
             {

@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 using DevOpsEnvMgmt.Models;
 using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.AspNetCore.Server.HttpSys;
-
+using Microsoft.AspNetCore.Http;
 
 namespace DevOpsEnvMgmt
 {
@@ -41,10 +41,11 @@ namespace DevOpsEnvMgmt
             services.AddScoped<DBDevOps.DataProvider.IUserRoles, DBDevOps.DataProvider.UserRolesDataProvider>();
             services.AddScoped<DBDevOps.DataProvider.IUsers, DBDevOps.DataProvider.UsersDataProvider>();
 
-            //services.AddScoped<DBDevOps.DataControllers.WinAuthController>();
+            //services.AddScoped<DevOpsEnvMgmt.Controllers.WinAuthController>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // Enable CORS before services.AddMvc()
-            // services.AddCors();
+            services.AddCors();
 
             services.AddMvc();
 			
