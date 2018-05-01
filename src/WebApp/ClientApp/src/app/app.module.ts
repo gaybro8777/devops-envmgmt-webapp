@@ -14,7 +14,7 @@ import { EnvironmentsService } from './services/environments.service';
 import { EnvStatusService } from './services/envstatus.service';
 import { ProjectTeamService } from './services/projectteam.service';
 import { UsersService } from './services/users.service';
-import { HPALMService } from './services/hpalm.dashboard1.service';
+import { HPALMService } from './services/hpalm.service';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -26,7 +26,7 @@ import { RetrieveUsersComponent } from './components/admin/retrieveusers/retriev
 import { adduser } from './components/admin/addusers/addusers.component';
 import { updateenvdashboard } from './components/updateenvdashboard/updateenvdashboard.component';
 import { EnvRequestForm } from './components/envrequestform/envrequestform.component';
-import { TableComponent } from './components/hpalm-dashboard/hpalm-dashboard.component';
+import { HPALMDashboardComponent } from './components/hpalm-dashboard/hpalm-dashboard.component';
 import { CdkDetailRowDirective } from './components/hpalm-dashboard/cdk-detail-row.directive';
 
 @NgModule({
@@ -35,7 +35,7 @@ import { CdkDetailRowDirective } from './components/hpalm-dashboard/cdk-detail-r
     HomeComponent,
     adminhomepage,
     RetrieveUsersComponent, adduser, updateenvdashboard, EnvRequestForm,
-    TableComponent,
+    HPALMDashboardComponent,
     CdkDetailRowDirective
   ],
   imports: [

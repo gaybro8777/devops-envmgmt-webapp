@@ -11,8 +11,8 @@ import { RootObject } from '../models/hpalmdefects.class';
 import { Entity } from '../models/hpalmdefects.class';
 import { Field } from '../models/hpalmdefects.class';
 import { Value } from '../models/hpalmdefects.class';
-import { HPALMDt1 } from '../models/hpalmdt1.datatable';
 import { IHPALMDt1 } from '../models/hpalmdt1.datatable';
+import { HPALMReleaseList } from '../models/hpalmreleaselist';
 
 @Injectable()
 export class HPALMService {
@@ -23,12 +23,13 @@ export class HPALMService {
     this.myAppUrl = baseUrl;
   }
 
-  getHPALMDashboardView1() {
+  getHPALMDashboardView1(NewRelID: number = 0) {
     //console.log("myAppUrl: " + this.myAppUrl);
     //console.log('made it to: getHPALMDashboardView1.');
 
     let relid: number = 1078;
-    return this._http.get(this.myAppUrl + "api/HPALM/" + relid)
+    if (NewRelID > 0) { relid = NewRelID }
+    return this._http.get(this.myAppUrl + "api/HPALM/ReleaseBundle/" + relid)
       .map((data: any) => {
         
         let hpalmEntities: RootObject;
@@ -117,6 +118,56 @@ export class HPALMService {
     //  .pipe(catchError(this.handleError));
 
     //return '';
+  }
+
+  getHPALMReleaseList() {
+    //console.log("myAppUrl: " + this.myAppUrl);
+    //console.log('made it to: getHPALMDashboardView1.');
+    let parentid: number = 110;
+    return this._http.get(this.myAppUrl + "api/HPALM/ReleaseList/" + parentid)
+      .map((data: any) => {
+
+        let hpalmEntities: RootObject;
+        let _entity: Entity[];
+        let _hpalmDataTable: HPALMReleaseList[] = [];
+
+        hpalmEntities = data;
+        //_entity = hpalmEntities.entities;
+        let rows_inner = [];
+        //_HPALMDt1
+        for (let _entity of hpalmEntities.entities) {
+          let _hpalmDataRow: HPALMReleaseList = {
+            name: '',
+            id: 0,
+            parentID: 0
+          };
+          for (let _field of _entity.Fields) {
+            let _FieldName = _field.Name;
+            let _extractedValue: string = '';
+            let _referenceValue: string = '';
+            if (_field.values.length > 0) {
+              for (let _valueArray of _field.values) {
+                if (_valueArray.value != null) {
+                  _extractedValue = _valueArray.value;
+                }
+                if (_valueArray.ReferenceValue != null) {
+                  _referenceValue = _valueArray.ReferenceValue;
+                }
+              }
+            }
+            //console.log("FieldName: " + _FieldName);
+            //console.log("Value: " + _extractedValue);
+            //console.log("Reference Value: " + _referenceValue);
+
+            if (_FieldName == 'name') { _hpalmDataRow.name = _extractedValue; }
+            if (_FieldName == 'id') { _hpalmDataRow.id = parseInt(_extractedValue, 10); }
+            if (_FieldName == 'parent-id') { _hpalmDataRow.parentID = parseInt(_extractedValue, 10); }
+
+          }
+          rows_inner.push(_hpalmDataRow)
+        }
+        return rows_inner;
+      });
   }
 
 

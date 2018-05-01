@@ -9,7 +9,7 @@ using System.Xml;
 
 namespace DevOpsEnvMgmt.Controllers
 {
-    [Route("api/HPALM")]
+    [Route("api/[controller]")]
     public class HPALMController : Controller
     {
         #region NOT USED
@@ -61,9 +61,16 @@ namespace DevOpsEnvMgmt.Controllers
         //}
         #endregion
 
+        [HttpGet] // this api/Values
+        public string Get()
+        {
+            return string.Format("Get: simple get");
+        }
+
         // GET api/<controller>/5
-        [HttpGet("{relid}")]
-        public async Task<string> Get(int relid)
+        [HttpGet]
+        [Route("ReleaseBundle/{relid}")]
+        public async Task<string> GetReleaseBundle(int relid)
         {
 
             #region Sample json
@@ -387,6 +394,38 @@ namespace DevOpsEnvMgmt.Controllers
                 //}
 
                 // return new string[] { "value1", "value2" };
+            }
+        }
+
+        // GET api/<controller>/5
+        [HttpGet]
+        [Route("ReleaseList/{parentid}")]
+        public async Task<string> GetReleaseList(int parentid)
+        {
+            using (var client = new HttpClient())
+            {
+                //try
+                //{
+                //var client = new HttpClient();
+                var request = new HttpRequestMessage()
+                {
+                    RequestUri = new Uri("http://10.17.2.99:8080/qcbin/api/authentication/sign-in"),
+                    Method = HttpMethod.Get,
+                };
+
+                request.Headers.Add("Authorization", "Basic cl9udW5lejo=");
+                HttpResponseMessage task = await client.SendAsync(request);
+                string responseText = task.Content.ReadAsStringAsync().Result;
+
+                HttpRequestMessage request2 = new HttpRequestMessage()
+                {
+                    RequestUri = new Uri("http://10.17.2.99:8080/qcbin/rest/domains/Motiva/projects/Agility/releases?fields=id,name,parent-id&order-by={name}&query={parent-id[" + parentid.ToString() + "]}"),
+                    Method = HttpMethod.Get,
+                };
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));//ACCEPT header
+                HttpResponseMessage task2 = await client.SendAsync(request2);
+                string responseText2 = task2.Content.ReadAsStringAsync().Result;
+                return responseText2;
             }
         }
     }

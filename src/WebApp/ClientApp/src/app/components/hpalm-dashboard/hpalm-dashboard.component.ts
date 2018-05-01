@@ -5,13 +5,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { HPALMService } from '../../services/hpalm.dashboard1.service';
+import { HPALMService } from '../../services/hpalm.service';
 import { IHPALMDt1 } from '../../models/hpalmdt1.datatable';
 
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { HPALMReleaseList } from '../../models/hpalmreleaselist';
 
 
 @Component({
@@ -30,11 +31,21 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 //public tblDataSource: MatTableDataSource;
 
 //  implements OnInit
-export class TableComponent implements AfterViewInit  {
+export class HPALMDashboardComponent implements OnInit, AfterViewInit  {
 
   expandCollapseIcon: 'keyboard_arrow_down';
+  releaseList: HPALMReleaseList[];
+  ddlReleaseListValue: number = 1078;
+  ReleaseText: string = '';
 
-  constructor(private _HPALMService: HPALMService) {
+  constructor(private _HPALMService: HPALMService, private route: ActivatedRoute) {
+    console.log('Called Constructor');
+    //this.route.queryParams.subscribe(params => {
+    //  this.ddlReleaseListValue = params['RelID'];
+    //});
+    if (this.route.snapshot.params["relid"]) {
+      this.ddlReleaseListValue = this.route.snapshot.params["relid"];
+    }
   }
 
   displayedColumns = ['DefectID', 'Summary', 'ReleaseBundle', 'FixingTeam','Status',
@@ -54,33 +65,42 @@ export class TableComponent implements AfterViewInit  {
    * be able to query its view for the initialized sort.
    */
   ngAfterViewInit() {
-    this._HPALMService.getHPALMDashboardView1().subscribe(data => {
+    this.GetDataSource();
+    
+  }
+
+  GetDataSource() {
+    this._HPALMService.getHPALMDashboardView1(this.ddlReleaseListValue).subscribe(data => {
       this.dataSource.data = data;
       //console.log(this.dataSource.data);
     });
     this.dataSource.sort = this.sort;
   }
 
-  //onRowExpandClick(event) {
-  //  console.log(event);
-  //  //keyboard_arrow_down
-  //}
+  ngOnInit() {
+    this.getReleaseList();
+  }
 
-  //ngOnInit() {
-  //  //let ds1 = new ExampleDataSource(this._HPALMService);
-  //  ////.subscribe(data => this.dataSource.data = data);
-  //  ////this.dataSource.data = ds1.connect;
-  //  //let data = ds1.connect();
-  //  //console.log(data);
+  getReleaseList() {
+    this._HPALMService.getHPALMReleaseList().subscribe(data => {
+      this.releaseList = data;
+      var filteredElements = data.filter(x => x.id == this.ddlReleaseListValue);
+      this.ReleaseText = filteredElements[0].name;
+    });
+  }
 
-
-  //  this._HPALMService.getHPALMDashboardView1().subscribe(data => {
-  //    this.dataSource.data = data;
-  //    //console.log(this.dataSource.data);
-  //  });
-  //  //this.dataSource.paginator = this.paginator;
-  //  this.dataSource.sort = this.sort;
-  //}
+  onReleaseListSelected(event) {
+    //console.log(event);
+    //console.log(event.source.selected.id);
+    //console.log(event.source._keyManager._items._results);
+    // .value = 1077
+    // .source._keyManager._items._results[4].id = "mat-option-4"
+    // .source._keyManager._items._results[4].viewValue = "0420 Rel"
+    // .source.triggerValue = "0420 Rel"
+    this.ddlReleaseListValue = parseInt(event.value);
+    this.ReleaseText = event.source.triggerValue;
+    this.GetDataSource()
+  }
 
   /** Whether the number of selected elements matches the total number of rows. */
   //isAllSelected() {

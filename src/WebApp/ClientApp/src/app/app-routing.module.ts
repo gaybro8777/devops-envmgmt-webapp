@@ -9,7 +9,7 @@ import { adduser } from './components/admin/addusers/addusers.component';
 import { updateenvdashboard } from './components/updateenvdashboard/updateenvdashboard.component';
 import { EnvRequestForm } from './components/envrequestform/envrequestform.component';
 
-import { TableComponent } from './components/hpalm-dashboard/hpalm-dashboard.component';
+import { HPALMDashboardComponent } from './components/hpalm-dashboard/hpalm-dashboard.component';
 import { CdkDetailRowDirective } from './components/hpalm-dashboard/cdk-detail-row.directive';
 
 const routes: Routes = [
@@ -21,8 +21,8 @@ const routes: Routes = [
   { path: 'admin/adduser/:id', component: adduser },
   { path: 'envrequestform', component: EnvRequestForm},
   { path: 'updateenvdashboard', component: updateenvdashboard },
-  { path: 'hpalmdashboard', component: TableComponent }
-  
+  { path: 'hpalmdashboard', component: HPALMDashboardComponent },
+  { path: 'hpalmdashboard/:relid', component: HPALMDashboardComponent }
 ];
 //,
 //{ path: '**', redirectTo: 'home' }
