@@ -28,6 +28,7 @@ import { updateenvdashboard } from './components/updateenvdashboard/updateenvdas
 import { EnvRequestForm } from './components/envrequestform/envrequestform.component';
 import { HPALMDashboardComponent } from './components/hpalm-dashboard/hpalm-dashboard.component';
 import { CdkDetailRowDirective } from './components/hpalm-dashboard/cdk-detail-row.directive';
+import { HpalmReleaseBundlePivotComponent } from './components/hpalm-release-bundle-pivot/hpalm-release-bundle-pivot.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CdkDetailRowDirective } from './components/hpalm-dashboard/cdk-detail-r
     adminhomepage,
     RetrieveUsersComponent, adduser, updateenvdashboard, EnvRequestForm,
     HPALMDashboardComponent,
-    CdkDetailRowDirective
+    CdkDetailRowDirective,
+    HpalmReleaseBundlePivotComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

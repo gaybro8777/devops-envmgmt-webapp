@@ -38,11 +38,10 @@ export class HPALMDashboardComponent implements OnInit, AfterViewInit  {
   ddlReleaseListValue: number = 1078;
   ReleaseText: string = '';
 
+  resourcesLoaded: boolean = false;
+  isDataEmpty: boolean = false;
+
   constructor(private _HPALMService: HPALMService, private route: ActivatedRoute) {
-    console.log('Called Constructor');
-    //this.route.queryParams.subscribe(params => {
-    //  this.ddlReleaseListValue = params['RelID'];
-    //});
     if (this.route.snapshot.params["relid"]) {
       this.ddlReleaseListValue = this.route.snapshot.params["relid"];
     }
@@ -66,14 +65,18 @@ export class HPALMDashboardComponent implements OnInit, AfterViewInit  {
    */
   ngAfterViewInit() {
     this.GetDataSource();
-    
   }
 
   GetDataSource() {
+    this.dataSource.data = [];
+    this.isDataEmpty = false;
+    this.resourcesLoaded = false;
     this._HPALMService.getHPALMDashboardView1(this.ddlReleaseListValue).subscribe(data => {
       this.dataSource.data = data;
-      //console.log(this.dataSource.data);
+      if (this.dataSource.data.length == 0) { this.isDataEmpty = true; }
+      this.resourcesLoaded = true;
     });
+    
     this.dataSource.sort = this.sort;
   }
 
@@ -84,8 +87,9 @@ export class HPALMDashboardComponent implements OnInit, AfterViewInit  {
   getReleaseList() {
     this._HPALMService.getHPALMReleaseList().subscribe(data => {
       this.releaseList = data;
+      //this.ddlReleaseListValue = this.ddlReleaseListValue;
       var filteredElements = data.filter(x => x.id == this.ddlReleaseListValue);
-      this.ReleaseText = filteredElements[0].name;
+      if (filteredElements.length > 0) { this.ReleaseText = filteredElements[0].name; }
     });
   }
 

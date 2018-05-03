@@ -12,6 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SideNavMenuModule } from 'mat-sidenav-menu';
 import { Angular5TimePickerModule } from 'angular5-time-picker';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { A11yModule } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
@@ -39,7 +40,8 @@ import { CdkTableModule } from '@angular/cdk/table';
     PortalModule,
     ScrollDispatchModule,
     CdkStepperModule,
-    CdkTableModule
+    CdkTableModule,
+    MatProgressSpinnerModule
   ],
   exports: [MatButtonModule, MatCheckboxModule, MatMenuModule, MatToolbarModule,
     MatIconModule, MatCardModule, MatFormFieldModule, MatInputModule,
@@ -55,7 +57,8 @@ import { CdkTableModule } from '@angular/cdk/table';
     PortalModule,
     ScrollDispatchModule,
     CdkStepperModule,
-    CdkTableModule
+    CdkTableModule,
+    MatProgressSpinnerModule
     ]
 })
 

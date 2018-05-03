@@ -48,6 +48,7 @@ namespace DBDevOps.DataControllers
         // GET: api/<controller>
         [Authorize]
         [HttpGet]
+        #pragma warning disable 1998
         public async Task<AuthenticationResult> GetUser()
         {
             //return Task.Run(() =>
@@ -74,5 +75,6 @@ namespace DBDevOps.DataControllers
                 //return SomeLongRunningMethodThatReturnsAString();
             //});
         }
+        #pragma warning restore 1998
     }
 }

@@ -8,6 +8,7 @@ import { RetrieveUsersComponent } from './components/admin/retrieveusers/retriev
 import { adduser } from './components/admin/addusers/addusers.component';
 import { updateenvdashboard } from './components/updateenvdashboard/updateenvdashboard.component';
 import { EnvRequestForm } from './components/envrequestform/envrequestform.component';
+import { HpalmReleaseBundlePivotComponent } from './components/hpalm-release-bundle-pivot/hpalm-release-bundle-pivot.component';
 
 import { HPALMDashboardComponent } from './components/hpalm-dashboard/hpalm-dashboard.component';
 import { CdkDetailRowDirective } from './components/hpalm-dashboard/cdk-detail-row.directive';
@@ -22,7 +23,9 @@ const routes: Routes = [
   { path: 'envrequestform', component: EnvRequestForm},
   { path: 'updateenvdashboard', component: updateenvdashboard },
   { path: 'hpalmdashboard', component: HPALMDashboardComponent },
-  { path: 'hpalmdashboard/:relid', component: HPALMDashboardComponent }
+  { path: 'hpalmdashboard/:relid', component: HPALMDashboardComponent },
+  { path: 'HpalmReleaseBundlePivotComponent', component: HpalmReleaseBundlePivotComponent },
+  { path: 'HpalmReleaseBundlePivotComponent/:relid', component: HpalmReleaseBundlePivotComponent }
 ];
 //,
 //{ path: '**', redirectTo: 'home' }
@@ -33,7 +36,8 @@ const routes: Routes = [
     RouterModule.forRoot( routes, { useHash: false } ),
   ],
   providers: [  ],
-  declarations: [ ],
+  declarations: [
+   ],
   exports: [
     RouterModule
   ],

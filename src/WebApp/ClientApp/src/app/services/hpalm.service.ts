@@ -13,11 +13,11 @@ import { Field } from '../models/hpalmdefects.class';
 import { Value } from '../models/hpalmdefects.class';
 import { IHPALMDt1 } from '../models/hpalmdt1.datatable';
 import { HPALMReleaseList } from '../models/hpalmreleaselist';
+import { HPALMPivotData } from '../models/hpalmpivotdata';
 
 @Injectable()
 export class HPALMService {
   myAppUrl: string = "";
-  hpamlUrl: string = 'http://10.17.2.99:8080';
 
   constructor(private _http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.myAppUrl = baseUrl;
@@ -162,6 +162,57 @@ export class HPALMService {
             if (_FieldName == 'name') { _hpalmDataRow.name = _extractedValue; }
             if (_FieldName == 'id') { _hpalmDataRow.id = parseInt(_extractedValue, 10); }
             if (_FieldName == 'parent-id') { _hpalmDataRow.parentID = parseInt(_extractedValue, 10); }
+
+          }
+          rows_inner.push(_hpalmDataRow)
+        }
+        return rows_inner;
+      });
+  }
+
+  getHPALMPivotData1(NewRelID: number = 0) {
+    let relid: number = 110;
+    if (NewRelID > 0) { relid = NewRelID }
+    return this._http.get(this.myAppUrl + "api/HPALM/PivotData1/" + relid)
+      .map((data: any) => {
+
+        let hpalmEntities: RootObject;
+        let _entity: Entity[];
+        let _hpalmDataTable: HPALMPivotData[] = [];
+
+        hpalmEntities = data;
+        //_entity = hpalmEntities.entities;
+        let rows_inner = [];
+        //_HPALMDt1
+        for (let _entity of hpalmEntities.entities) {
+          let _hpalmDataRow: HPALMPivotData = {
+            projectTeam: '',
+            status: '',
+            defectID: 0,
+            relID: 0
+          };
+          for (let _field of _entity.Fields) {
+            let _FieldName = _field.Name;
+            let _extractedValue: string = '';
+            let _referenceValue: string = '';
+            if (_field.values.length > 0) {
+              for (let _valueArray of _field.values) {
+                if (_valueArray.value != null) {
+                  _extractedValue = _valueArray.value;
+                }
+                if (_valueArray.ReferenceValue != null) {
+                  _referenceValue = _valueArray.ReferenceValue;
+                }
+              }
+            }
+            //console.log("FieldName: " + _FieldName);
+            //console.log("Value: " + _extractedValue);
+            //console.log("Reference Value: " + _referenceValue);
+
+            if (_FieldName == 'user-15') { _hpalmDataRow.projectTeam = _extractedValue; }
+            if (_FieldName == 'status') { _hpalmDataRow.status = _extractedValue; }
+            if (_FieldName == 'id') { _hpalmDataRow.defectID = parseInt(_extractedValue, 10); }
+            if (_FieldName == 'target-rel') { _hpalmDataRow.relID = parseInt(_extractedValue, 10); }
 
           }
           rows_inner.push(_hpalmDataRow)
