@@ -1,43 +1,32 @@
-<!--component html goes here -->
+<table border="0">
+  <tr>
+    <td width="300px">
+      
+    </td>
+    <td width="100%">
+      <div style="text-align:center">
+        <h1>
+          0518 - Release Pivot Summary
+        </h1>
+      </div>
+    </td>
+  </tr>
+</table>
 
-<!--
-<div class="example-container mat-elevation-z8">
+<div class="table-container mat-elevation-z8">
   <mat-table #table [dataSource]="dataSource">
 
-    <ng-container matColumnDef="Project">
-      <mat-header-cell *matHeaderCellDef> Project </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.Project }}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Assigned">
-      <mat-header-cell *matHeaderCellDef> Assigned </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.Assigned }}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Duplicate">
-      <mat-header-cell *matHeaderCellDef> Duplicate </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.Duplicate }}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Total">
-      <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.Total }}</mat-cell>
-    </ng-container>
-
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns; let last = last;">xx{{last}}</mat-row>
 
-    <mat-row *matRowDef="let row; columns: displayedColumns;" matRipple class="element-row">
-    </mat-row>
-
+    <ng-container *ngFor="let column of columns; let colIndex = index" [cdkColumnDef]="column.columnDef">
+      <mat-header-cell *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <div *ngIf="colIndex == 0" class="mat-header-cell">{{ row[colIndex] }}</div>
+        <div *ngIf="row[colIndex] == '-'">{{ row[colIndex] }}</div>
+        <a routerLink="/somepage/{{ddlReleaseListValue}}/{{row[0]}}/{{column.header}}" *ngIf="colIndex > 0 && row[colIndex] != '-'">{{ row[colIndex] }}</a>
+      </mat-cell>
+    </ng-container>
+      
   </mat-table>
 </div>
--->
-<table border="1">
-<!--<tr><td *ngFor="let colItem of someColumns; let i = index">{{ colItem }}</td></tr>-->
-<tr *ngFor="let rowItem of someData; let j = index">
-  <td *ngFor="let colItemValue of rowItem; let k = index">
-      <a routerLink='/somePage/{{ddlReleaseListValue}}/{{rowItem[0]}}/{{someColumns[k]}}'>{{ colItemValue }}</a>
-  </td>
-</tr>
-
-</table>

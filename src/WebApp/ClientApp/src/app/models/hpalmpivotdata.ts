@@ -4,3 +4,10 @@ export class HPALMPivotData {
   public defectID: number;
   public relID: number;
 }
+
+export interface IHPALMPivotData {
+  projectTeam: string;
+  status: string;
+  defectID: number;
+  relID: number;
+}

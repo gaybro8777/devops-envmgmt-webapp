@@ -9,7 +9,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { HPALMPivotData } from '../../models/hpalmpivotdata';
-
+import { IHPALMPivotData } from '../../models/hpalmpivotdata';
 
 export interface Element {
   Project: string;
@@ -17,10 +17,6 @@ export interface Element {
   Duplicate: string;
   Total: string;
 }
-let someData: Array<Element> = [{'Project' : 'MIDDLEWARE', 'Assigned': '3', 'Duplicate': '-', 'Total' :  '10'},
-  {'Project' : 'RIGHTANGLE', 'Assigned': '-', 'Duplicate': '-', 'Total' : '12'}];
-
-
 
 @Component({
   selector: 'hpalm-release-bundle-pivot',
@@ -33,22 +29,12 @@ export class HpalmReleaseBundlePivotComponent implements OnInit, AfterViewInit {
   ddlReleaseListValue: number = 1078;
   ReleaseText: string = '';
 
-  public someColumns: string[];
-  public someData: string[];
+  _pivotData : IHPALMPivotData[];
+  dataSource = new MatTableDataSource();
 
-  _pivotData : HPALMPivotData[];
-  //dataSource = new MatTableDataSource();
-  displayedColumns = ["Project", "Assigned", "Duplicate", "Total"];
-
-  //someData: any[] = [{'Project' : 'MIDDLEWARE', 'Assigned': 3, 'Duplicate': '-', 'Total' :  10},
-  //{'Project' : 'RIGHTANGLE', 'Assigned': '-', 'Duplicate': '-', 'Total' : 12}];
-  //dataSource = [ {"Project", "Assigned", "Duplicate", "In Progress", "Migrate to Production", "New", "RA Tulsa Support", "Ready for ,UAT", "UAT In Progress", "Unit Test", "Total"},{"MIDDLEWARE", 3, "-", 4, "-", 1, "-", 1, 1, "-", 10}];
-  //someArrayData: any[] = [['MIDDLEWARE', '3', '-', '10'],['RIGHTANGLE', '-', '-','12']];
-  //someArrayData = [{"Project" : "MIDDLEWARE", "Assigned": "3", "Duplicate": "-", "Total" :  "10"},
-  //{"Project" : "RIGHTANGLE", "Assigned": "-", "Duplicate": "-", "Total" : "12"}];
-
-  //dataSource = new MatTableDataSource(this.someArrayData);
-  dataSource = someData;
+  displayedColumns: string[] = [];
+  columns: object[] = [];
+  tableData: string[] = [];
 
   constructor(private _HPALMService: HPALMService, private route: ActivatedRoute) {
     if (this.route.snapshot.params["relid"]) {
@@ -56,34 +42,33 @@ export class HpalmReleaseBundlePivotComponent implements OnInit, AfterViewInit {
     }
   }
 
+
   ngOnInit() {
     this.CreatePivotData();
   }
   ngAfterViewInit() {
     //this.GetDataSource();
-    // console.log("ngAfterViewInit");
-    //console.log(this.dataSource);
-    //console.log(this.displayedColumns);
   }
 
   CreatePivotData()
   {
     this._HPALMService.getHPALMPivotData1(this.ddlReleaseListValue).subscribe(data => {
       this._pivotData = data;
-      //console.log(this.dataSource.data);
-      //console.log(this._pivotData);
 
       let _NewPivotData = this.getPivotArray(this._pivotData, 1, 3, 0);
-      //console.log(_NewPivotData);
-      this.someData = _NewPivotData;
-      //console.log(this.someData);
-      
-      //this.displayedColumns = _NewPivotData[0];
-      this.someColumns = _NewPivotData[0];
+      //let _FinalPivotData = this.convertPivotArrayToArryofObjects(_NewPivotData);
 
-      //console.log(_NewPivotData[0]);
-      // console.log("Lets see what the datasource data looks like:");
-      //console.log(this.dataSource.data);
+      this.displayedColumns = _NewPivotData[0];
+      this.columns = this.generateColumns(_NewPivotData[0]);
+
+      _NewPivotData.shift();
+      _NewPivotData = _NewPivotData.sort(this.Comparator);
+
+      let FootTotalRow = this.CreateSummationRow(_NewPivotData);
+      _NewPivotData.push(FootTotalRow);
+      this.dataSource.data = _NewPivotData;
+
+
 
     });
   }
@@ -104,15 +89,11 @@ export class HpalmReleaseBundlePivotComponent implements OnInit, AfterViewInit {
         result[dataArray[i].projectTeam][dataArray[i].status] = result[dataArray[i].projectTeam][dataArray[i].status] + 1;
       }
       
-        //result[dataArray[i].projectTeam][dataArray[i].status] = dataArray[i].defectID;
-        //console.log(dataArray[i]);
         //To get column names
         if (newCols.indexOf(dataArray[i].status) == -1) {
             newCols.push(dataArray[i].status);
         }
     }
-    
-    console.log(result);
 
     newCols.sort();
 
@@ -126,16 +107,10 @@ export class HpalmReleaseBundlePivotComponent implements OnInit, AfterViewInit {
     item.push.apply(item, newCols);
     ret.push(item);
 
-    //console.log(newCols);
-    // for (var key in result) {
-    //   console.log(key);
-    // }
-
     //Add content 
     for (var key in result) {
         item = [];
         item.push(key);
-        //console.log(item);
         var runningTotalColumn = 0;
         for (var i = 0; i < newCols.length; i++) {
 
@@ -151,10 +126,73 @@ export class HpalmReleaseBundlePivotComponent implements OnInit, AfterViewInit {
             item.push(result[key][newCols[i]] || "-");
           }
         }
-        //item.push(result[key][newCols[ newCols.length - 1 ]]);
-        //console.log(runningTotalColumn);
         ret.push(item);
     }
     return ret;
+  }
+
+  convertPivotArrayToArryofObjects(pivotArray) {
+    let  finalArryOfObjects = [];
+    let columnHeaderArray = pivotArray[0];
+    
+    for (var rowIdx = 1; rowIdx < pivotArray.length; rowIdx++) {
+      let _rowOfObjects = {}
+      for (var colIdx = 0; colIdx < columnHeaderArray.length; colIdx++) {
+          
+          if(Number.isInteger(pivotArray[rowIdx][colIdx])) {
+            _rowOfObjects["\"" + columnHeaderArray[colIdx] + "\""] = pivotArray[rowIdx][colIdx].toString() ;
+          } else {
+            _rowOfObjects["\"" + columnHeaderArray[colIdx] + "\""] = pivotArray[rowIdx][colIdx];
+          }
+      }
+      
+      finalArryOfObjects.push(_rowOfObjects);
+    }
+    return finalArryOfObjects;
+  }
+
+  generateColumns(tableColumns: string[])                                                           // Create columns, this is an array of objects. The object the holds the headingName, Label and Cell 
+  {
+
+    var innerIndex: number = 1;
+    var columnObj: object;
+    var columns: object[] = [];
+
+    for (var i = 0; i < tableColumns.length; i++) {
+
+      columnObj = new function () {
+        this.columnDef = tableColumns[i].toString();
+        this.header = tableColumns[i].toString();
+        this.cell = [];
+      }
+      columns.push(columnObj)
+    }
+    return columns;
+  }
+
+  Comparator(a, b) {
+    if (a[0] < b[0]) return -1;
+    if (a[0] > b[0]) return 1;
+    return 0;
+  }
+
+  CreateSummationRow(dataArray) {
+    let sumRow = [];
+    sumRow.push("Total");
+    if (dataArray.length > 0) {
+      let colSize = dataArray[0].length;
+      for (var colIdx = 1; colIdx < colSize; colIdx++) {
+        let rowObj = [];
+        let ColumnTotal = 0;
+        for (var rowIdx = 0; rowIdx < dataArray.length; rowIdx++) {
+          rowObj = dataArray[rowIdx];
+          if (Number.isInteger(rowObj[colIdx])) {
+            ColumnTotal = ColumnTotal + rowObj[colIdx]
+          }
+        }
+        sumRow.push(ColumnTotal);
+      }   
+    }
+    return sumRow;
   }
 }
