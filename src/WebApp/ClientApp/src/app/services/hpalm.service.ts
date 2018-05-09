@@ -171,7 +171,7 @@ export class HPALMService {
   }
 
   getHPALMPivotData1(NewRelID: number = 0) {
-    let relid: number = 110;
+    let relid: number = 1078;
     if (NewRelID > 0) { relid = NewRelID }
     return this._http.get(this.myAppUrl + "api/HPALM/PivotData1/" + relid)
       .map((data: any) => {

@@ -332,7 +332,7 @@ namespace DevOpsEnvMgmt.Controllers
 
                 HttpRequestMessage request2 = new HttpRequestMessage()
                 {
-                    RequestUri = new Uri(_HPALMRestUrl + "/domains/Motiva/projects/Agility/defects?fields=target-rel,user-15,id,user-33,user-17,user-04,severity,priority,user-05,user-12,user-29,user-21,user-47,project,user-39,status,description,name&query={target-rel[" + relid.ToString() + "]}"),
+                    RequestUri = new Uri(_HPALMRestUrl + "/domains/Motiva/projects/Agility/defects?fields=target-rel,user-15,id,user-33,user-17,user-04,severity,priority,user-05,user-12,user-29,user-21,user-47,project,user-39,status,description,name&query={target-rel[" + relid.ToString() + "]}&page-size=200"),
                     Method = HttpMethod.Get,
                 };
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));//ACCEPT header
@@ -407,7 +407,7 @@ namespace DevOpsEnvMgmt.Controllers
 
                 HttpRequestMessage request2 = new HttpRequestMessage()
                 {
-                    RequestUri = new Uri(_HPALMRestUrl + "/domains/Motiva/projects/Agility/defects?fields=user-15,id,status,target-rel,user-15&query={target-rel[" + relid.ToString() + "]}"),
+                    RequestUri = new Uri(_HPALMRestUrl + "/domains/Motiva/projects/Agility/defects?fields=user-15,id,status,target-rel,user-15&query={target-rel[" + relid.ToString() + "]}&page-size=200"),
                     Method = HttpMethod.Get,
                 };
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));//ACCEPT header

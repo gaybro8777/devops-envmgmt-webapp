@@ -36,6 +36,9 @@ export class HpalmReleaseBundlePivotComponent implements OnInit, AfterViewInit {
   columns: object[] = [];
   tableData: string[] = [];
 
+  resourcesLoaded: boolean = false;
+  isDataEmpty: boolean = false;
+
   constructor(private _HPALMService: HPALMService, private route: ActivatedRoute) {
     if (this.route.snapshot.params["relid"]) {
       this.ddlReleaseListValue = this.route.snapshot.params["relid"];
@@ -52,6 +55,8 @@ export class HpalmReleaseBundlePivotComponent implements OnInit, AfterViewInit {
 
   CreatePivotData()
   {
+    this.isDataEmpty = false;
+    this.resourcesLoaded = false;
     this._HPALMService.getHPALMPivotData1(this.ddlReleaseListValue).subscribe(data => {
       this._pivotData = data;
 
@@ -68,8 +73,8 @@ export class HpalmReleaseBundlePivotComponent implements OnInit, AfterViewInit {
       _NewPivotData.push(FootTotalRow);
       this.dataSource.data = _NewPivotData;
 
-
-
+      if (this.dataSource.data.length == 0) { this.isDataEmpty = true; }
+      this.resourcesLoaded = true;
     });
   }
 

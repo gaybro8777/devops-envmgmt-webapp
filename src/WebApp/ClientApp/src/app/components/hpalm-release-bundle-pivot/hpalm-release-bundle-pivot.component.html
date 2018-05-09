@@ -1,8 +1,6 @@
 <table border="0">
   <tr>
-    <td width="300px">
-      
-    </td>
+    <td width="300px"></td>
     <td width="100%">
       <div style="text-align:center">
         <h1>
@@ -17,7 +15,7 @@
   <mat-table #table [dataSource]="dataSource">
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns; let last = last;">xx{{last}}</mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
     <ng-container *ngFor="let column of columns; let colIndex = index" [cdkColumnDef]="column.columnDef">
       <mat-header-cell *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
@@ -27,6 +25,16 @@
         <a routerLink="/somepage/{{ddlReleaseListValue}}/{{row[0]}}/{{column.header}}" *ngIf="colIndex > 0 && row[colIndex] != '-'">{{ row[colIndex] }}</a>
       </mat-cell>
     </ng-container>
-      
+
   </mat-table>
 </div>
+
+<mat-card *ngIf="isDataEmpty">
+  <mat-card-content>No results</mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="!resourcesLoaded">
+  <mat-card-content>
+    <mat-spinner></mat-spinner>
+  </mat-card-content>
+</mat-card>
