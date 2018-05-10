@@ -135,7 +135,7 @@ export class HPALMService {
         
 
 
-        console.log(rows_inner);
+        //console.log(rows_inner);
         return rows_inner;
       });
       //.pipe(catchError(this.handleError));

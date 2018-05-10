@@ -85,3 +85,8 @@ mat-cell:nth-child(2),
 {
   flex: 0 0 10%;
 }*/
+
+mat-cell.red {
+  background-color: #FFCA28;
+  align-self: stretch;
+}
