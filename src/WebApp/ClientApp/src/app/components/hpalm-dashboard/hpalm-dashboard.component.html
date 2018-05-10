@@ -27,11 +27,7 @@
     <!-- Weight DefectID -->
     <ng-container matColumnDef="DefectID">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Defect ID </mat-header-cell>
-      <mat-cell *matCellDef="let element" style="text-decoration: underline">
-        {{
-element.DefectID
-        }}
-      </mat-cell>
+      <mat-cell *matCellDef="let element" style="text-decoration: underline"> {{element.DefectID}} </mat-cell>
     </ng-container>
 
     <!-- Position ReleaseBundle -->

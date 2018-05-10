@@ -40,6 +40,7 @@ namespace DevOpsEnvMgmt
             services.AddScoped<DBDevOps.DataProvider.IServerType, DBDevOps.DataProvider.ServerTypeDataProvider>();
             services.AddScoped<DBDevOps.DataProvider.IUserRoles, DBDevOps.DataProvider.UserRolesDataProvider>();
             services.AddScoped<DBDevOps.DataProvider.IUsers, DBDevOps.DataProvider.UsersDataProvider>();
+            services.AddScoped<DBDevOps.DataProvider.IHPALMSnapshot, DBDevOps.DataProvider.SnapshotDataProvider>();
 
             //services.AddScoped<DevOpsEnvMgmt.Controllers.WinAuthController>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

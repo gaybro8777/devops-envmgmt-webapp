@@ -14,6 +14,7 @@ import { Value } from '../models/hpalmdefects.class';
 import { IHPALMDt1 } from '../models/hpalmdt1.datatable';
 import { HPALMReleaseList } from '../models/hpalmreleaselist';
 import { HPALMPivotData } from '../models/hpalmpivotdata';
+import { HPALMSnapshotModel } from '../models/hpalmsnapshot.model';
 
 @Injectable()
 export class HPALMService {
@@ -31,7 +32,7 @@ export class HPALMService {
     if (NewRelID > 0) { relid = NewRelID }
     return this._http.get(this.myAppUrl + "api/HPALM/ReleaseBundle/" + relid)
       .map((data: any) => {
-        
+
         let hpalmEntities: RootObject;
         let _entity: Entity[];
         let _hpalmDataTable: IHPALMDt1[] = [];
@@ -59,7 +60,8 @@ export class HPALMService {
             Project: '',
             Integrated: '',
             Description: '',
-            Summary: ''
+            Summary: '',
+            IsNew: 'No',
           };
           //let _hpalmDataRow = {} as IHPALMDt1;
           //let _hpalmDataRow: IHPALMDt1;
@@ -104,12 +106,36 @@ export class HPALMService {
             if (_FieldName == 'name') { _hpalmDataRow.Summary = _extractedValue; }
 
           }
-          
+
           //rows_inner.push(_hpalmDataRow, { detailRow: true, _hpalmDataRow })
           rows_inner.push(_hpalmDataRow)
         }
 
-        //console.log(rows_inner);
+        // Now Query Snapshot from MSSQL and loop do a join and find exclusions, and mark those
+        let objHpalmSnapshot: HPALMSnapshotModel[];
+        this.getHPALMSnapshot().subscribe(res => {
+          objHpalmSnapshot = res;
+          //console.log(rows_inner);
+          //console.log(objHpalmSnapshot);
+
+          //console.log(rows_inner.length);
+          for (var activeIndex = 0; activeIndex < rows_inner.length; activeIndex++) {
+            let Active_DefectID: number = +rows_inner[activeIndex].DefectID;
+            for (var snapshotIndex = 0; snapshotIndex < objHpalmSnapshot.length; snapshotIndex++) {
+              let Snapshot_DefectID: number = +objHpalmSnapshot[snapshotIndex].defectID;
+              if (Active_DefectID == Snapshot_DefectID) {
+                rows_inner[activeIndex].IsNew = "No";
+                break;
+              } else {
+                rows_inner[activeIndex].IsNew = "Yes";
+              }
+            }
+          }
+        });
+        
+
+
+        console.log(rows_inner);
         return rows_inner;
       });
       //.pipe(catchError(this.handleError));
@@ -118,6 +144,13 @@ export class HPALMService {
     //  .pipe(catchError(this.handleError));
 
     //return '';
+  }
+
+  getHPALMSnapshot() {
+    return this._http.get(this.myAppUrl + "api/Snapshot/").pipe(catchError(this.handleError));
+          //.map((response: Response) => objHpalmSnapshot = response.json())
+          //.catch(this.handleError);
+          //.pipe(catchError(this.handleError));
   }
 
   getHPALMReleaseList() {

@@ -17,6 +17,7 @@ export interface IHPALMDt1 {
   Integrated: string;
   Description: string;
   Summary: string;
+  IsNew: string;
 }
 
 
@@ -39,6 +40,7 @@ export class HPALMDt1 {
   Integrated: string;
   Description: string;
   Summary: string;
+  IsNew: string;
 
   constructor(ReleaseBundle: string,
     FixingTeam: string,
@@ -57,7 +59,8 @@ export class HPALMDt1 {
     Project: string,
     Integrated: string,
     Description: string,
-    Summary: string) {
+    Summary: string,
+    IsNew: string) {
     this.ReleaseBundle = ReleaseBundle;
     this.FixingTeam = FixingTeam;
     this.DefectID = DefectID;
@@ -76,6 +79,7 @@ export class HPALMDt1 {
     this.Integrated = Integrated;
     this.Description = Description;
     this.Summary = Summary;
+    this.IsNew = IsNew;
   }
 }
 
