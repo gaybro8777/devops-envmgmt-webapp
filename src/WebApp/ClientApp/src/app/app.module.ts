@@ -15,6 +15,7 @@ import { EnvStatusService } from './services/envstatus.service';
 import { ProjectTeamService } from './services/projectteam.service';
 import { UsersService } from './services/users.service';
 import { HPALMService } from './services/hpalm.service';
+import { TfsService } from './services/tfs.service';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +30,7 @@ import { EnvRequestForm } from './components/envrequestform/envrequestform.compo
 import { HPALMDashboardComponent } from './components/hpalm-dashboard/hpalm-dashboard.component';
 import { CdkDetailRowDirective } from './components/hpalm-dashboard/cdk-detail-row.directive';
 import { HpalmReleaseBundlePivotComponent } from './components/hpalm-release-bundle-pivot/hpalm-release-bundle-pivot.component';
+import { TfsLabelsAndTagsReportComponent } from './components/reports/tfs-labels-and-tags-report/tfs-labels-and-tags-report.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { HpalmReleaseBundlePivotComponent } from './components/hpalm-release-bun
     RetrieveUsersComponent, adduser, updateenvdashboard, EnvRequestForm,
     HPALMDashboardComponent,
     CdkDetailRowDirective,
-    HpalmReleaseBundlePivotComponent
+    HpalmReleaseBundlePivotComponent,
+    TfsLabelsAndTagsReportComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -65,7 +68,7 @@ import { HpalmReleaseBundlePivotComponent } from './components/hpalm-release-bun
   ],
   providers: [ ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, AuthenticationService, 
     ApplicationsService, EnvironmentsService, EnvStatusService, ProjectTeamService, UsersService,
-    StateService, HPALMService
+    StateService, HPALMService, TfsService
   ],
   bootstrap: [AppComponent]
 })

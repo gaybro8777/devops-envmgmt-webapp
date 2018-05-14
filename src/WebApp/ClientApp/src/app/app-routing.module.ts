@@ -9,6 +9,7 @@ import { adduser } from './components/admin/addusers/addusers.component';
 import { updateenvdashboard } from './components/updateenvdashboard/updateenvdashboard.component';
 import { EnvRequestForm } from './components/envrequestform/envrequestform.component';
 import { HpalmReleaseBundlePivotComponent } from './components/hpalm-release-bundle-pivot/hpalm-release-bundle-pivot.component';
+import { TfsLabelsAndTagsReportComponent } from './components/reports/tfs-labels-and-tags-report/tfs-labels-and-tags-report.component';
 
 import { HPALMDashboardComponent } from './components/hpalm-dashboard/hpalm-dashboard.component';
 import { CdkDetailRowDirective } from './components/hpalm-dashboard/cdk-detail-row.directive';
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'hpalmdashboard', component: HPALMDashboardComponent },
   { path: 'hpalmdashboard/:relid', component: HPALMDashboardComponent },
   { path: 'HpalmReleaseBundlePivotComponent', component: HpalmReleaseBundlePivotComponent },
-  { path: 'HpalmReleaseBundlePivotComponent/:relid', component: HpalmReleaseBundlePivotComponent }
+  { path: 'HpalmReleaseBundlePivotComponent/:relid', component: HpalmReleaseBundlePivotComponent },
+  { path: 'reports/TfsLabelsAndTagsReport', component: TfsLabelsAndTagsReportComponent }
 ];
 //,
 //{ path: '**', redirectTo: 'home' }

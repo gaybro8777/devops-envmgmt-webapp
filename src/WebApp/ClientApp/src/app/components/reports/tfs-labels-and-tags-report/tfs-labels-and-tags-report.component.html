@@ -1,0 +1,85 @@
+<!--component html goes here -->
+<table border="0">
+  <tr>
+    <td width="300px">
+      
+    </td>
+    <td width="100%">
+      <div style="text-align:center">
+        <h1>
+          TFS Labels and Git Tags
+        </h1>
+      </div>
+    </td>
+  </tr>
+</table>
+<div class="example-container mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource" matSort>
+    <!--- Note that these columns can be defined in any order.
+    The actual rendered columns are set as a property on the row definition" -->
+    <!-- Weight LabelName -->
+    <ng-container matColumnDef="labelName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Label Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.labelName}} </mat-cell>
+    </ng-container>
+
+    <!-- Position Comment -->
+    <ng-container matColumnDef="comment">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Comment </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.comment}} </mat-cell>
+    </ng-container>
+
+    <!-- Position Changeset -->
+    <ng-container matColumnDef="changeset">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Changeset </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.changeset}} </mat-cell>
+    </ng-container>
+
+    <!-- Name ProjectName -->
+    <ng-container matColumnDef="projectName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Project Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.projectName}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Path -->
+    <ng-container matColumnDef="path">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Path </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.path}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight LastModified -->
+    <ng-container matColumnDef="lastModified">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Last Modified </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.lastModified}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight User -->
+    <ng-container matColumnDef="user">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> User </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.user}} </mat-cell>
+    </ng-container>
+
+
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: displayedColumns;" matRipple class="element-row">
+    </mat-row>
+
+
+
+  </mat-table>
+
+
+</div>
+
+<mat-card *ngIf="isDataEmpty">
+  <mat-card-content>No results</mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="!resourcesLoaded">
+  <mat-card-content>
+    <mat-spinner></mat-spinner>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,78 @@
+// component css goes here
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 600px;
+  min-width: 30px;
+}
+
+.mat-cell {
+  font-size: 12px;
+}
+
+.mat-header-row {
+  background-color: #93ccea;
+  padding: 5px;
+}
+
+.mat-header-cell {
+  color: black;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 100%;
+}
+
+.element-row {
+  position: relative;
+}
+
+.mat-row {
+  min-height: 15px;
+  padding: 5px;
+}
+
+.mat-row-hidden-row {
+  font-size: 10px;
+  min-height: 15px;
+  padding: 5px;
+  text-align: left;
+}
+
+hr.style-one {
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+mat-row:nth-child(even) {
+  background-color: white;
+}
+
+mat-row:nth-child(odd) {
+  background-color: #f4f4f4;
+}
+
+/* ********************************************* */
+
+mat-cell:nth-child(1),
+.mat-header-cell:nth-child(1) {
+  flex: 0 0 300px;
+  text-align: left;
+}
+mat-cell:nth-child(2),
+.mat-header-cell:nth-child(2) {
+  flex: 0 0 300px;
+  text-align: left;
+}
+
+/*.mat-cell:nth-child(5),
+.mat-header-cell:nth-child(5)
+{
+  flex: 0 0 10%;
+}*/
+
