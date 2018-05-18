@@ -8,6 +8,8 @@ namespace DBDevOps.DataProvider
 {
     public interface IHPALMSnapshot
     {
-        Task<IEnumerable<HPALM_SnapshotView1>> GetSnapshot();
+        Task<IEnumerable<HPALM_SnapshotView1>> GetSnapshot(int id);
+
+        Task<IEnumerable<HPALMSnapshotList>> GetSnapshotList();
     }
 }

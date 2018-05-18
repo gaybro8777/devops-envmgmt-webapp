@@ -14,7 +14,8 @@ import { Value } from '../models/hpalmdefects.class';
 import { IHPALMDt1 } from '../models/hpalmdt1.datatable';
 import { HPALMReleaseList } from '../models/hpalmreleaselist';
 import { HPALMPivotData } from '../models/hpalmpivotdata';
-import { HPALMSnapshotModel } from '../models/hpalmsnapshot.model';
+import { HPALMSnapshotModel, HPALMSnapshotListModel } from '../models/hpalmsnapshot.model';
+import * as moment from 'moment';
 
 @Injectable()
 export class HPALMService {
@@ -24,7 +25,7 @@ export class HPALMService {
     this.myAppUrl = baseUrl;
   }
 
-  getHPALMDashboardView1(NewRelID: number = 0) {
+  getHPALMDashboardView1(NewRelID: number = 0, SnapshotID: number = 0) {
     //console.log("myAppUrl: " + this.myAppUrl);
     //console.log('made it to: getHPALMDashboardView1.');
 
@@ -113,12 +114,9 @@ export class HPALMService {
 
         // Now Query Snapshot from MSSQL and loop do a join and find exclusions, and mark those
         let objHpalmSnapshot: HPALMSnapshotModel[];
-        this.getHPALMSnapshot().subscribe(res => {
+        //console.log(SnapshotID);
+        this.getHPALMSnapshot(SnapshotID).subscribe(res => {
           objHpalmSnapshot = res;
-          //console.log(rows_inner);
-          //console.log(objHpalmSnapshot);
-
-          //console.log(rows_inner.length);
           for (var activeIndex = 0; activeIndex < rows_inner.length; activeIndex++) {
             let Active_DefectID: number = +rows_inner[activeIndex].DefectID;
             for (var snapshotIndex = 0; snapshotIndex < objHpalmSnapshot.length; snapshotIndex++) {
@@ -144,13 +142,6 @@ export class HPALMService {
     //  .pipe(catchError(this.handleError));
 
     //return '';
-  }
-
-  getHPALMSnapshot() {
-    return this._http.get(this.myAppUrl + "api/Snapshot/").pipe(catchError(this.handleError));
-          //.map((response: Response) => objHpalmSnapshot = response.json())
-          //.catch(this.handleError);
-          //.pipe(catchError(this.handleError));
   }
 
   getHPALMReleaseList() {
@@ -254,7 +245,19 @@ export class HPALMService {
       });
   }
 
+  getHPALMSnapshot(snapshotId: number = 0) {
+    return this._http.get(this.myAppUrl + "api/Snapshot/SnapshotById/" + snapshotId.toString()).pipe(catchError(this.handleError));
+      //.map((response: Response) => objHpalmSnapshot = response.json())
+      //.catch(this.handleError);
+      //.pipe(catchError(this.handleError));
+  }
 
+  getHPALMSnapshotList() {
+    return this._http.get(this.myAppUrl + "api/Snapshot/SnapshotList").pipe(catchError(this.handleError));
+    //.map((response: Response) => objHpalmSnapshot = response.json())
+    //.catch(this.handleError);
+    //.pipe(catchError(this.handleError));
+  }
 
   handleError(error: Response) {
     if ((<any>error).error instanceof ErrorEvent) {

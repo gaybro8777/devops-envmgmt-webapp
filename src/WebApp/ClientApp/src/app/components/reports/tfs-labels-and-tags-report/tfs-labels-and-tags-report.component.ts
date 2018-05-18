@@ -7,6 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 
 import { TfsService } from '../../../services/tfs.service';
 import { TfsLabels } from '../../../models/tfs.model';
+import * as moment from 'moment';
 
 @Component({
     moduleId: module.id,
@@ -21,7 +22,7 @@ export class TfsLabelsAndTagsReportComponent implements OnInit, AfterViewInit {
   constructor(private _TfsService: TfsService, private route: ActivatedRoute) {
   }
 
-  displayedColumns = ['labelName', 'comment', 'changeset', 'projectName','path','lastModified', 'user'];
+  displayedColumns = ['labelName', 'comment', 'changeset', 'projectName','path','lastModifedString', 'user'];
   dataSource = new MatTableDataSource<TfsLabels>();
   @ViewChild(MatSort) sort: MatSort;
 
@@ -38,13 +39,33 @@ export class TfsLabelsAndTagsReportComponent implements OnInit, AfterViewInit {
     this.isDataEmpty = false;
     this.resourcesLoaded = false;
     this._TfsService.getTFSLabels().subscribe(data => {
-      this.dataSource.data = data;
+      let tfsDataSet: TfsLabels[] = data;
+      //console.log(tfsDataSet);
+      for (var i = 0; i < tfsDataSet.length; i++) {
+        
+        //console.log(tfsDataSet[i].lastModified);
+        let _modifiedDateTime = moment(tfsDataSet[i].lastModified);
+        //console.log(_modifiedDateTime.format('l LT'));
+        //let newdt = moment();
+        tfsDataSet[i].lastModifedString = _modifiedDateTime.format('l LT');
+      }
+
+      this.dataSource.data = tfsDataSet;
+      //console.log(this.dataSource.data);
       if (this.dataSource.data.length == 0) { this.isDataEmpty = true; }
       this.resourcesLoaded = true;
     });
     this.dataSource.sort = this.sort;
+
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'lastModifedString': return new Date(item.lastModified);
+        default: return item[property];
+      }
+    };
   }
 
   ngOnInit() {
+
   }
 }

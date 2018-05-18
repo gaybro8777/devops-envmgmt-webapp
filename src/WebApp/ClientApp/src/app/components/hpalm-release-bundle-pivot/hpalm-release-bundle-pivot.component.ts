@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { HPALMPivotData } from '../../models/hpalmpivotdata';
 import { IHPALMPivotData } from '../../models/hpalmpivotdata';
+import { HPALMReleaseList } from '../../models/hpalmreleaselist';
 
 export interface Element {
   Project: string;
@@ -26,6 +27,7 @@ export interface Element {
 
 export class HpalmReleaseBundlePivotComponent implements OnInit, AfterViewInit {
 
+  releaseList: HPALMReleaseList[];
   ddlReleaseListValue: number = 1078;
   ReleaseText: string = '';
 
@@ -47,10 +49,26 @@ export class HpalmReleaseBundlePivotComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
+    this.getReleaseList();
     this.CreatePivotData();
   }
   ngAfterViewInit() {
     //this.GetDataSource();
+  }
+
+  getReleaseList() {
+    this._HPALMService.getHPALMReleaseList().subscribe(data => {
+      this.releaseList = data;
+      //this.ddlReleaseListValue = this.ddlReleaseListValue;
+      var filteredElements = data.filter(x => x.id == this.ddlReleaseListValue);
+      if (filteredElements.length > 0) { this.ReleaseText = filteredElements[0].name; }
+    });
+  }
+
+  onReleaseListSelected(event) {
+    // this.ddlReleaseListValue = parseInt(event.value);
+    this.ReleaseText = event.source.triggerValue;
+    this.CreatePivotData();
   }
 
   CreatePivotData()
@@ -156,7 +174,7 @@ export class HpalmReleaseBundlePivotComponent implements OnInit, AfterViewInit {
     return finalArryOfObjects;
   }
 
-  generateColumns(tableColumns: string[])                                                           // Create columns, this is an array of objects. The object the holds the headingName, Label and Cell 
+  generateColumns(tableColumns: string[])// Create columns, this is an array of objects. The object the holds the headingName, Label and Cell 
   {
 
     var innerIndex: number = 1;

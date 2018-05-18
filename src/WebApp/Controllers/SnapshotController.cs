@@ -19,11 +19,20 @@ namespace DBDevOps.Controllers
             this.hpalmsnapshotDataProvider = hpalmsnapshotDataProvider;
         }
 
-        // GET: api/Users
+        // GET: api/Snapshot/1
         [HttpGet]
-        public async Task<IEnumerable<HPALM_SnapshotView1>> Get()
+        [Route("SnapshotById/{snapshotid}")]
+        public async Task<IEnumerable<HPALM_SnapshotView1>> GetSnapshotById(int snapshotid)
         {
-            return await this.hpalmsnapshotDataProvider.GetSnapshot();
+            return await this.hpalmsnapshotDataProvider.GetSnapshot(snapshotid);
+        }
+
+        // GET: api/Snapshot/1
+        [HttpGet]
+        [Route("SnapshotList")]
+        public async Task<IEnumerable<HPALMSnapshotList>> GetSnapshotById()
+        {
+            return await this.hpalmsnapshotDataProvider.GetSnapshotList();
         }
     }
 }

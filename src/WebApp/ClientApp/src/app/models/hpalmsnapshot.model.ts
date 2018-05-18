@@ -19,3 +19,8 @@ export class HPALMSnapshotModel {
   summary: string;
 }
 
+export class HPALMSnapshotListModel {
+  snapshotID: number;
+  snapshotDateTime: Date;
+  snapshotDateTimeString: string;
+}

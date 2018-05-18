@@ -69,4 +69,7 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+  <Target Name="bug_242_workaround" AfterTargets="_TransformWebConfig">
+    <Exec Command="powershell &quot;(Get-Content $(PublishDir)\Web.config).replace(' -argFile IISExeLauncherArgs.txt', '') | Set-Content $(PublishDir)\Web.config&quot;" />
+  </Target>
 </Project>

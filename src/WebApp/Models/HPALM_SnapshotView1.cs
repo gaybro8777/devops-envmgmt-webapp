@@ -27,4 +27,11 @@ namespace DBDevOps.Models
         public string Summary { get; set; }
         //public string IsNew { get; set; }
     }
+
+    public class HPALMSnapshotList
+    {
+        public int SnapshotID { get; set; }
+        public DateTime SnapshotDateTime { get; set; }
+        public string SnapshotDateTimeString { get; set; }
+    }
 }

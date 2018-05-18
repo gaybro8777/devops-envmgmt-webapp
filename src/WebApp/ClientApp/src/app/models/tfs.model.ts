@@ -6,5 +6,6 @@ export class TfsLabels{
   public projectName: string;
   public path: string;
   public lastModified: Date;
+  public lastModifedString: string;
   public user: string;
 }

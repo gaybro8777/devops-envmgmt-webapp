@@ -13,7 +13,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { HPALMReleaseList } from '../../models/hpalmreleaselist';
-
+import { HPALMSnapshotListModel } from '../../models/hpalmsnapshot.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'hpalm-dashboard-component',
@@ -35,7 +36,9 @@ export class HPALMDashboardComponent implements OnInit, AfterViewInit  {
 
   expandCollapseIcon: 'keyboard_arrow_down';
   releaseList: HPALMReleaseList[];
+  snapshotList: HPALMSnapshotListModel[];
   ddlReleaseListValue: number = 1078;
+  ddlSnapshotListValue: number = 0;
   ReleaseText: string = '';
 
   resourcesLoaded: boolean = false;
@@ -49,11 +52,8 @@ export class HPALMDashboardComponent implements OnInit, AfterViewInit  {
 
   displayedColumns = ['DefectID', 'Summary', 'ReleaseBundle', 'FixingTeam','Status',
     'AssignedTo', 'Vertical', 'DefectCategory', 'ArchitecturalReview', 'Developer', 'Project', 'Integrated'];
-  //dataSource = new ExampleDataSource(this._HPALMService);
-  //exampleDatabase: ExampleDataSource | null;
   dataSource = new MatTableDataSource<IHPALMDt1>();
   @ViewChild(MatSort) sort: MatSort;
-  //selection = new SelectionModel<IHPALMDt1>(true, []);
 
   //isExpansionDetailRow = (i: number, row: Object) => row.hasOwnProperty('detailRow');
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
@@ -71,7 +71,7 @@ export class HPALMDashboardComponent implements OnInit, AfterViewInit  {
     this.dataSource.data = [];
     this.isDataEmpty = false;
     this.resourcesLoaded = false;
-    this._HPALMService.getHPALMDashboardView1(this.ddlReleaseListValue).subscribe(data => {
+    this._HPALMService.getHPALMDashboardView1(this.ddlReleaseListValue, this.ddlSnapshotListValue).subscribe(data => {
       this.dataSource.data = data;
       if (this.dataSource.data.length == 0) { this.isDataEmpty = true; }
       this.resourcesLoaded = true;
@@ -82,6 +82,7 @@ export class HPALMDashboardComponent implements OnInit, AfterViewInit  {
 
   ngOnInit() {
     this.getReleaseList();
+    this.getSnapshotList();
   }
 
   getReleaseList() {
@@ -93,67 +94,25 @@ export class HPALMDashboardComponent implements OnInit, AfterViewInit  {
     });
   }
 
+  getSnapshotList() {
+    this._HPALMService.getHPALMSnapshotList().subscribe(data => {
+      this.snapshotList = data;
+      let defaultValue: number = 0;
+      if(this.snapshotList.length > 0) {
+        defaultValue = this.snapshotList[this.snapshotList.length - 1].snapshotID;
+      }
+      this.ddlSnapshotListValue = defaultValue;
+    });
+  }
+
   onReleaseListSelected(event) {
-    //console.log(event);
-    //console.log(event.source.selected.id);
-    //console.log(event.source._keyManager._items._results);
-    // .value = 1077
-    // .source._keyManager._items._results[4].id = "mat-option-4"
-    // .source._keyManager._items._results[4].viewValue = "0420 Rel"
-    // .source.triggerValue = "0420 Rel"
-    this.ddlReleaseListValue = parseInt(event.value);
+    // this.ddlReleaseListValue = parseInt(event.value);
     this.ReleaseText = event.source.triggerValue;
     this.GetDataSource()
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  //isAllSelected() {
-  //  const numSelected = this.selection.selected.length;
-  //  const numRows = this.dataSource.data.length;
-  //  return numSelected === numRows;
-  //}
-
-  ///** Selects all rows if they are not all selected; otherwise clear selection. */
-  //masterToggle() {
-  //  this.isAllSelected() ?
-  //    this.selection.clear() :
-  //    this.dataSource.data.forEach(row => this.selection.select(row));
-  //}
+  onSnapshotListChange(event) {
+    // this.ddlSnapshotListValue = parseInt(event.value);
+    this.GetDataSource()
+  }
 }
-
-
-
-//  extends DataSource<any>
-export class ExampleDataSource {
-
-  constructor(private _HPALMService: HPALMService) {
-    //super();
-  }
-
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  //: IHPALMDt1[]
-  connect(): Observable<IHPALMDt1[]> {
-    console.log("got called!");
-    let dataItems: Observable<IHPALMDt1[]>;
-    //this._HPALMService.getHPALMDashboardView1().subscribe(data => {
-    //  //dataItems = data;
-    //  //console.log(data);
-    //  this.tblDataSource = data;
-    //  return data;
-    //});
-    ////console.log(dataItems);
-    ////return dataItems;
-
-    //dataItems = this._HPALMService.getHPALMDashboardView1().map((data) => { return data; });
-    dataItems = this._HPALMService.getHPALMDashboardView1();
-    return dataItems;
-  }
-
-  connectGOOD(): Observable<IHPALMDt1[]> {
-    return this._HPALMService.getHPALMDashboardView1().map((data) => { return data });
-  }
-
-  disconnect() { }
-
-}
-

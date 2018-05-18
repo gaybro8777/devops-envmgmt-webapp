@@ -1,12 +1,23 @@
 <table border="0">
   <tr>
-    <td width="300px">
-      <mat-form-field class="form-full-width">
-        <mat-select placeholder="Release List" name="ddlReleaseList"
+    <td width="300px" style="padding-left: 15px;">
+      <mat-form-field class="form-fddlSnapshotListull-width">
+        <mat-select placeholder="Release List"
                     [(ngModel)]="ddlReleaseListValue"
                     (selectionChange)="onReleaseListSelected($event)">
           <mat-option *ngFor="let item of releaseList" [value]="item.id">
             {{item.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td width="300px" style="padding-left: 15px;">
+      <mat-form-field class="form-full-width">
+        <mat-select placeholder="Snapshot List"
+                    [(ngModel)]="ddlSnapshotListValue"
+                    (selectionChange)="onSnapshotListChange($event)">
+          <mat-option *ngFor="let item of snapshotList" [value]="item.snapshotID">
+            {{item.snapshotDateTimeString}}
           </mat-option>
         </mat-select>
       </mat-form-field>

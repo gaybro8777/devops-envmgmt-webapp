@@ -35,19 +35,6 @@
   padding: 5px;
 }
 
-.mat-row-hidden-row {
-  font-size: 10px;
-  min-height: 15px;
-  padding: 5px;
-  text-align: left;
-}
-
-hr.style-one {
-  border: 0;
-  height: 1px;
-  background: #333;
-  background-image: linear-gradient(to right, #ccc, #333, #ccc);
-}
 
 mat-row:nth-child(even) {
   background-color: white;

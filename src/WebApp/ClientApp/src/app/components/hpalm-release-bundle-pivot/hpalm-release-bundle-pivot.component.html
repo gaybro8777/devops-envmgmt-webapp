@@ -1,10 +1,20 @@
 <table border="0">
   <tr>
-    <td width="300px"></td>
+    <td width="300px" style="padding-left: 15px;">
+      <mat-form-field class="form-full-width">
+        <mat-select placeholder="Release List"
+                    [(ngModel)]="ddlReleaseListValue"
+                    (selectionChange)="onReleaseListSelected($event)">
+          <mat-option *ngFor="let item of releaseList" [value]="item.id">
+            {{item.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
     <td width="100%">
       <div style="text-align:center">
         <h1>
-          0518 - Release Pivot Summary
+          {{ ReleaseText }} - Release Pivot Summary
         </h1>
       </div>
     </td>
