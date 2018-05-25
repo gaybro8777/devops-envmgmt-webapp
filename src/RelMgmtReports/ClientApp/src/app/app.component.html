@@ -1,0 +1,31 @@
+<!-- app-nav-menu></app-nav-menu -->
+<mat-sidenav-container style="height:100%">
+  <mat-sidenav #sidenav mode="side" opened="true">
+    <side-nav-menu title='Menu' [sidenav]="sidenav">
+      <side-nav-item route="/home" title="Home" icon="home"></side-nav-item>
+
+      <side-nav-item route="/hpalmdashboard" title="HPALM Dashboard" icon="dashboard"></side-nav-item>
+      <side-nav-item route="/HpalmReleaseBundlePivotComponent" title="HPALM Status Pivot" icon="image_aspect_ratio"></side-nav-item>
+      <side-nav-item route="/HpalmReleaseBundlePivotByProjectComponent" title="HPALM Project Pivot" icon="image_aspect_ratio"></side-nav-item>
+
+    </side-nav-menu>
+  </mat-sidenav>
+
+
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+    <table border="0">
+      <tr>
+        <td width="100%" align="center"><span>Release Management Reports</span></td>
+        <td></td>
+      </tr>
+    </table>
+    
+    
+  </mat-toolbar>
+
+  <div style="text-align:center;width:100%">
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-sidenav-container>

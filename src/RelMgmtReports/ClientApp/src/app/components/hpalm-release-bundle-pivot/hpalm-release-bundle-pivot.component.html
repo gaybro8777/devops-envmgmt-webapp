@@ -1,0 +1,49 @@
+<table border="0">
+  <tr>
+    <td width="300px" style="padding-left: 15px;">
+      <mat-form-field class="form-full-width">
+        <mat-select placeholder="Release List"
+                    [(ngModel)]="ddlReleaseListValue"
+                    (selectionChange)="onReleaseListSelected($event)">
+          <mat-option *ngFor="let item of releaseList" [value]="item.id">
+            {{item.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td width="100%">
+      <div style="text-align:center">
+        <h1>
+          {{ ReleaseText }} - Release Pivot Summary
+        </h1>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<div class="table-container mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource">
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    <ng-container *ngFor="let column of columns; let colIndex = index" [cdkColumnDef]="column.columnDef">
+      <mat-header-cell *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <div *ngIf="colIndex == 0" class="mat-header-cell">{{ row[colIndex] }}</div>
+        <div *ngIf="colIndex > 0">{{ row[colIndex] }}</div>
+      </mat-cell>
+    </ng-container>
+
+  </mat-table>
+</div>
+
+<mat-card *ngIf="isDataEmpty">
+  <mat-card-content>No results</mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="!resourcesLoaded">
+  <mat-card-content>
+    <mat-spinner></mat-spinner>
+  </mat-card-content>
+</mat-card>

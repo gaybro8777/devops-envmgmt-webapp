@@ -1,0 +1,12 @@
+
+.dashboard-card {
+  max-width: 400px;
+  min-height: 240px;
+}
+
+/* #3F51B5 */
+.fullscreen {
+  background: linear-gradient(#031d7a, #91a6f2) fixed;
+  width: 100%;
+  height: 100%;
+}

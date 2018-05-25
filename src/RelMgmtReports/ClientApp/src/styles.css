@@ -1,0 +1,70 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+mat-card {
+  max-width: 90%;
+  margin: 2em auto;
+  text-align: center;
+}
+
+mat-toolbar-row {
+  justify-content: space-between;
+}
+toolbar-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox. 
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.mat-card {
+  text-align: -webkit-center;
+}
+
+.form-toolbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.form-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.form-full-width {
+  width: 100%;
+}
+
+.done {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  color: white;
+}
+
+.content-center {
+  text-align: -webkit-center;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Roboto, sans-serif;
+}
+
+
+side-nav-x-group mat-expansion-panel-header.mat-expansion-panel-header {
+  padding-left: 16px;
+}
+
+div.mat-expansion-panel-body {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
